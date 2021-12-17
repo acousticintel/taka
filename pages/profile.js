@@ -57,7 +57,7 @@ export default function Profile() {
         <h3>Submited Products</h3>
         <div className="section-divider" />
         <div className="flex justify-around ">
-          <div className="flex" >
+          <div className="flex items-center" >
             <div className="relative h-10 w-10 mx-2 my-auto">
               <Image src="/assets/tcoin.png" layout='fill' />
             </div>

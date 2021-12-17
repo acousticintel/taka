@@ -41,8 +41,8 @@ export default function History() {
           {
             posts?.map(post => {
               return (
-                <div className="post-card">
-                  <div className="image" key={post.id}>
+                <div className="post-card" key={post.id}>
+                  <div className="image">
                     <Image src={post.data().image} layout='fill' />
                   </div>
                   <div className="desc">
