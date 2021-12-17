@@ -3,8 +3,9 @@ import { signOut, useSession } from 'next-auth/react';
 import Image from 'next/image';
 import { Transition } from '@headlessui/react';
 import Link from 'next/link';
+import { withRouter } from 'next/router'
 
-export default function Navbar() {
+function Navbar({router}) {
   const { data: session } = useSession();
 
   const [dropOpen, setDropOpen] = useState(false);
@@ -24,17 +25,22 @@ export default function Navbar() {
   };
 
   useEffect(() => {
-    if (clientWindowHeight > 10) {
+    if(router.pathname !== '/'){
       setBoxShadow('drop-shadow-lg');
       setTextColor('text-gray-800')
       setBackgroundTransparacy('bg-white');
-    } else {
-      setBoxShadow('drop-shadow-none');
-      setTextColor('text-white')
-      setBackgroundTransparacy('bg-transparent');
-    }
-  }, [clientWindowHeight]);
-
+    }else{
+      if (clientWindowHeight > 10) {
+        setBoxShadow('drop-shadow-lg');
+        setTextColor('text-gray-800')
+        setBackgroundTransparacy('bg-white');
+      } else {
+        setBoxShadow('drop-shadow-none');
+        setTextColor('text-white')
+        setBackgroundTransparacy('bg-transparent');
+      }
+    };
+  }, [clientWindowHeight, router]);
 
   return (
     <nav
@@ -50,7 +56,7 @@ export default function Navbar() {
           }
           <div className="flex-1 flex items-center justify-start sm:items-stretch">
             <Link href='/'>
-              <div className="flex-shrink-0 flex items-center">
+              <div className="flex-shrink-0 flex items-center font-extrabold text-4xl">
                 TAKA
               </div>
             </Link>
@@ -88,6 +94,7 @@ export default function Navbar() {
                         id="user-menu-button" aria-expanded="false"
                         aria-haspopup="true"
                         onClick={() => setDropOpen(!dropOpen)}
+                        onBlur={() => setDropOpen(false)}
                       >
                         <span className="sr-only">Open user menu</span>
                         <img className="h-8 w-8 rounded-full" src={session.user.image} alt="" />
@@ -130,3 +137,5 @@ export default function Navbar() {
     </nav>
   )
 }
+
+export default withRouter(Navbar)

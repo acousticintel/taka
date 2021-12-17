@@ -35,13 +35,20 @@ export default function Profile() {
       <Modal session={session} />
       <h5>Hello {session?.user.name}</h5>
       <div className="buttons-sec">
-        <button className="py-1 px-5 mx-4 border-2 border-purple-300 rounded-full"
+        <button className="mx-auto lg:mx-0 bg-white 
+          text-gray-800 font-bold rounded-full my-6 py-4 hover:text-purple-500
+          px-8 shadow-lg focus:outline-none border-2 border-purple-300
+          focus:shadow-outline transform transition 
+          hover:scale-105 duration-300 ease-in-out"
           onClick={() => setOpen(true)}
         >
           Upload
         </button>
-        <button className="py-2 px-3 mx-4 border-2 
-        border-purple-300 rounded-full"
+        <button className="mx-auto lg:mx-4 bg-white 
+          text-gray-800 font-bold rounded-full my-6 py-4 hover:text-purple-500
+          px-8 shadow-lg focus:outline-none border-2 border-purple-300
+          focus:shadow-outline transform transition 
+          hover:scale-105 duration-300 ease-in-out"
           onClick={handleClick}>
           History
         </button>
@@ -59,8 +66,11 @@ export default function Profile() {
               <span className="text-xs">Rewarded Points</span>
             </div>
           </div>
-          <button className="py-1 px-5 border-2 border-red-300 
-        rounded-full">
+          <button className="mx-auto lg:mx-4 bg-white 
+          text-gray-800 font-bold rounded-full my-6 py-4 hover:text-red-500
+          px-8 shadow-lg focus:outline-none border-2 border-red-300
+          focus:shadow-outline transform transition 
+          hover:scale-105 duration-300 ease-in-out">
             Offers
           </button>
         </div>

@@ -37,13 +37,23 @@ export default function History() {
       <h5>Uploaded Photos</h5>
       <div className="section-divider" />
       <section>
-        <div className="flex flex-wrap">
+        <div className="flex flex-col">
           {
             posts?.map(post => {
               return (
-                <div className="h-40 w-40 rounded-2xl overflow-hidden 
-                relative mx-3" key={post.id}>
-                  <Image src={post.data().image} layout='fill' />
+                <div className="post-card">
+                  <div className="image" key={post.id}>
+                    <Image src={post.data().image} layout='fill' />
+                  </div>
+                  <div className="desc">
+                    <h6>Category:</h6>
+                    <h6>Description:</h6>
+                    <p>{post.data().caption}</p> 
+                  </div>
+                  <div className="points">
+                    <p>Earned Points</p>
+                    <h3>30</h3>
+                  </div>
                 </div>
               )
             })

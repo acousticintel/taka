@@ -27,7 +27,7 @@ export default function Hero() {
           <div className="flex flex-col w-full md:w-2/5 justify-center items-start text-center md:text-left">
             <p className="uppercase tracking-loose w-full">E WASTE MANAGEMENT</p>
             <h1 className="my-4 text-5xl font-bold leading-tight">
-              With the TAKA, users can now stand to profit whenever they recycle!
+              Stand a chance to profit whenever they recycle!
             </h1>
             <p className="leading-normal text-2xl mb-8">
               Pick-up of E Waste from your location.
@@ -42,7 +42,7 @@ export default function Hero() {
             //Right Col
           }
           <div className="w-full md:w-3/5 py-6 text-center">
-            <img className="w-full md:w-4/5 z-50" src="hero.png" />
+            <img className="w-full md:w-4/5 z-50" src="/assets/hero.png" />
           </div>
         </div>
       </div>
@@ -415,8 +415,8 @@ export default function Hero() {
             </div>
             <div className="flex-none mt-auto bg-white rounded-b rounded-t-none overflow-hidden shadow p-6">
               <div className="flex items-center justify-start">
-                <button className="mx-auto lg:mx-0 hover:underline gradient text-white font-bold rounded-full my-6 py-4 px-8 shadow-lg focus:outline-none focus:shadow-outline transform transition hover:scale-105 duration-300 ease-in-out">
-                  Action
+                <button onClick={handleClick} className="mx-auto lg:mx-0 gradient text-white font-bold rounded-full my-6 py-4 px-8 shadow-lg focus:outline-none focus:shadow-outline transform transition hover:scale-105 duration-300 ease-in-out">
+                  Join
                 </button>
               </div>
             </div>
@@ -437,8 +437,8 @@ export default function Hero() {
             </div>
             <div className="flex-none mt-auto bg-white rounded-b rounded-t-none overflow-hidden shadow p-6">
               <div className="flex items-center justify-center">
-                <button className="mx-auto lg:mx-0 hover:underline gradient text-white font-bold rounded-full my-6 py-4 px-8 shadow-lg focus:outline-none focus:shadow-outline transform transition hover:scale-105 duration-300 ease-in-out">
-                  Action
+                <button onClick={handleClick} className="mx-auto lg:mx-0 gradient text-white font-bold rounded-full my-6 py-4 px-8 shadow-lg focus:outline-none focus:shadow-outline transform transition hover:scale-105 duration-300 ease-in-out">
+                  Join
                 </button>
               </div>
             </div>
@@ -459,8 +459,8 @@ export default function Hero() {
             </div>
             <div className="flex-none mt-auto bg-white rounded-b rounded-t-none overflow-hidden shadow p-6">
               <div className="flex items-center justify-end">
-                <button className="mx-auto lg:mx-0 hover:underline gradient text-white font-bold rounded-full my-6 py-4 px-8 shadow-lg focus:outline-none focus:shadow-outline transform transition hover:scale-105 duration-300 ease-in-out">
-                  Action
+                <button onClick={handleClick} className="mx-auto lg:mx-0 hover:underline gradient text-white font-bold rounded-full my-6 py-4 px-8 shadow-lg focus:outline-none focus:shadow-outline transform transition hover:scale-105 duration-300 ease-in-out">
+                  Join
                 </button>
               </div>
             </div>
@@ -493,7 +493,7 @@ export default function Hero() {
       </svg>
       <section className="container mx-auto text-center py-6 mb-12">
         <h1 className="w-full my-2 text-5xl font-bold leading-tight text-center text-white">
-          Join Us
+          Earn Points
         </h1>
         <div className="w-full mb-4">
           <div className="h-1 mx-auto bg-white w-1/6 opacity-25 my-0 py-0 rounded-t"></div>
@@ -501,7 +501,7 @@ export default function Hero() {
         <h3 className="my-4 text-3xl leading-tight">
           Kenya E-Waste Collection & Recycling Program
         </h3>
-        <button onClick={handleClick} className="mx-auto lg:mx-0 hover:underline bg-white text-gray-800 font-bold rounded-full my-6 py-4 px-8 shadow-lg focus:outline-none focus:shadow-outline transform transition hover:scale-105 duration-300 ease-in-out">
+        <button onClick={handleClick} className="mx-auto lg:mx-0 bg-white text-gray-800 font-bold rounded-full my-6 py-4 px-8 shadow-lg focus:outline-none focus:shadow-outline transform transition hover:scale-105 duration-300 ease-in-out">
           Learn More
         </button>
       </section>

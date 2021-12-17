@@ -30,7 +30,7 @@ export default function Modal({ session }) {
     })
     console.log("New doc added with ID", docRef.id);
 
-    const imageRef = ref(storage, `posts/$(docRef.id}/image`);
+    const imageRef = ref(storage, 'posts/' + docRef.id + '/image');
 
     await uploadString(imageRef, selectedFile, "data_url").then(async snapshot => {
       const downloadURL = await getDownloadURL(imageRef);
