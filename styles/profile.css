@@ -7,7 +7,7 @@
 }
 
 .profile-page > section{
-  @apply bg-gray-200 px-10 py-12 shadow-lg rounded-3xl my-10;
+  @apply bg-gray-100 px-10 py-12 shadow-lg rounded-3xl my-10;
 }
 
 .profile-page h5{
@@ -19,18 +19,48 @@
 }
 
 .redeem-section{
-  @apply flex mt-5;
+  @apply flex mt-5 h-52;
 }
 
 .redeem-card{
-  @apply h-40 w-32 rounded-xl p-5 mx-3 flex flex-col 
-  justify-center items-center;
-}
-
-.redeem-card > span:last-child{
-  @apply text-gray-300;
+  @apply h-40 w-32 rounded-xl mx-3 my-auto flex justify-center items-center
+   text-gray-400 bg-white relative overflow-hidden 
+   transition-all duration-500 ease-in-out;
 }
 
 .redeem-card.selected{
-  @apply text-white bg-gradient-to-r from-purple-700 via-blue-800 to-blue-500;
+  @apply h-44;
+}
+
+.redeem-card .grad{
+  @apply z-0 w-full h-full absolute left-0 top-0 bg-gradient-to-t from-purple-700 via-blue-800 to-blue-500 ;
+}
+
+.redeem-card > .content{
+  @apply z-10 flex flex-col justify-center items-center 
+  transition-all duration-300 ease-in;
+}
+
+.redeem-card > .content > span{
+  @apply transition-all duration-300 ease-in-out;
+}
+
+.redeem-card > .content > span:nth-child(1){
+  @apply text-2xl font-bold;
+}
+
+.redeem-card.selected > .content > span:nth-child(1){
+  @apply text-3xl text-gray-100;
+}
+
+.redeem-card > .content > span:nth-child(2){
+  @apply text-blue-300 text-xs;
+}
+
+.redeem-card.selected > .content > span:nth-child(2){
+  @apply text-gray-100 text-sm;
+}
+
+.redeem-card.selected > .content > svg{
+  @apply text-gray-100 h-6 w-6 transition-all duration-300 ease-in-out;
 }

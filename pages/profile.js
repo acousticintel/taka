@@ -1,20 +1,31 @@
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { useSession } from 'next-auth/react';
 import { useRouter } from 'next/router';
 import Image from 'next/image';
 import { useRecoilState } from "recoil";
 import { modalState } from '../atoms/modalAtom';
 import Modal from '../components/modal';
+import RedeemCard from '../components/redeemcard';
 
 export default function Profile() {
   const router = useRouter();
   const { data: session, loading } = useSession();
   const [open, setOpen] = useRecoilState(modalState);
+  const [pointBreaks, setPointBreaks] = useState([20,40,60,80,100]);
 
-  const handleClick = e => {
+  const handleHistoryClick = e => {
     e.preventDefault();
     if (session) {
       router.push('/history')
+    } else {
+      router.push('/auth/signin')
+    }
+  }
+
+  const handleOffersClick = e => {
+    e.preventDefault();
+    if (session) {
+      router.push('/offers')
     } else {
       router.push('/auth/signin')
     }
@@ -49,7 +60,7 @@ export default function Profile() {
           px-8 shadow-lg focus:outline-none border-2 border-purple-300
           focus:shadow-outline transform transition 
           hover:scale-105 duration-300 ease-in-out"
-          onClick={handleClick}>
+          onClick={handleHistoryClick}>
           History
         </button>
       </div>
@@ -70,7 +81,8 @@ export default function Profile() {
           text-gray-800 font-bold rounded-full my-6 py-4 hover:text-red-500
           px-8 shadow-lg focus:outline-none border-2 border-red-300
           focus:shadow-outline transform transition 
-          hover:scale-105 duration-300 ease-in-out">
+          hover:scale-105 duration-300 ease-in-out"
+          onClick={handleOffersClick}>
             Offers
           </button>
         </div>
@@ -79,26 +91,11 @@ export default function Profile() {
         <h3>Redeem Points</h3>
         <div className="section-divider" />
         <div className="redeem-section ">
-          <div className=" redeem-card selected">
-            <span className="text-3xl font-bold">20</span>
-            <span>Redeem</span>
-          </div>
-          <div className="redeem-card">
-            <span className="text-3xl font-bold">40</span>
-            <span>Redeem</span>
-          </div>
-          <div className="redeem-card">
-            <span className="text-3xl font-bold">60</span>
-            <span>Redeem</span>
-          </div>
-          <div className="redeem-card">
-            <span className="text-3xl font-bold">80</span>
-            <span>Redeem</span>
-          </div>
-          <div className="redeem-card">
-            <span className="text-3xl font-bold">100</span>
-            <span>Redeem</span>
-          </div>
+          {
+            pointBreaks.map((p, i)=>(
+              <RedeemCard points={p} key={i}/>
+            ))
+          }
         </div>
       </section>
     </div>

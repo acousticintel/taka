@@ -24,6 +24,11 @@ function Navbar({router}) {
     setClientWindowHeight(window.scrollY);
   };
 
+  const handleClick = e => {
+    e.preventDefault();
+    router.push('/profile');
+  } 
+
   useEffect(() => {
     if(router.pathname !== '/'){
       setBoxShadow('drop-shadow-lg');
@@ -113,10 +118,8 @@ function Navbar({router}) {
                         {
                           // Active: "bg-gray-100", Not Active: "" 
                         }
-                        <Link href='/profile'>
-                          <a className="block px-4 py-2 text-sm text-gray-700" role="menuitem" tabIndex="-1" id="user-menu-item-0">Your Profile</a>
-                        </Link>
-                        <a onClick={signOut} className="block px-4 py-2 text-sm text-gray-700" role="menuitem" tabIndex="-1" id="user-menu-item-2">Sign out</a>
+                        <a onMouseDown={handleClick} className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-300 hover:text-gray-800" role="menuitem" tabIndex="-1" id="user-menu-item-0">Your Profile</a>
+                        <a onMouseDown={signOut} className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-300 hover:text-gray-800" role="menuitem" tabIndex="-1" id="user-menu-item-2">Sign out</a>
                       </div>
                     </Transition>
                   </div>
@@ -124,7 +127,11 @@ function Navbar({router}) {
               ) : (
                 <Link href='/auth/signin'>
                   <button
-                    className="mx-auto lg:mx-0 bg-white text-gray-800 font-bold rounded-full my-6 py-2 px-4 shadow-lg focus:outline-none focus:shadow-outline transform transition hover:scale-105 duration-300 ease-in-out">
+                    className="mx-auto lg:mx-0 bg-white 
+                    text-gray-800 font-bold rounded-full my-6 
+                    py-2 px-4 shadow-lg focus:outline-none 
+                    focus:shadow-outline transform transition 
+                    hover:scale-105 duration-300 ease-in-out">
                     Login / SignUp
                   </button>
                 </Link>

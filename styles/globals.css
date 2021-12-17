@@ -23,5 +23,5 @@ body{
 
 .section-divider{
   @apply bg-gradient-to-r rounded-full from-purple-700 via-blue-800 to-blue-300
-  mt-1 mb-4 h-0.5 w-7;
+   ml-2 mt-1 mb-4 h-0.5 w-7;
 }

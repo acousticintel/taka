@@ -33,7 +33,6 @@ export default function History() {
 
   return (
     <div className="history-page">
-      <Modal session={session} />
       <h5>Uploaded Photos</h5>
       <div className="section-divider" />
       <section>
