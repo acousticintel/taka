@@ -1,0 +1,36 @@
+.profile-page{
+  @apply bg-white h-full text-gray-800 pt-20 px-4 pb-10; 
+}
+
+.profile-page > .buttons-sec{
+  @apply flex justify-start my-3;
+}
+
+.profile-page > section{
+  @apply bg-gray-200 px-10 py-12 shadow-lg rounded-3xl my-10;
+}
+
+.profile-page h5{
+  @apply font-medium text-lg;
+}
+
+.profile-page h3{
+  @apply font-semibold text-2xl;
+}
+
+.redeem-section{
+  @apply flex mt-5;
+}
+
+.redeem-card{
+  @apply h-40 w-32 rounded-xl p-5 mx-3 flex flex-col 
+  justify-center items-center;
+}
+
+.redeem-card > span:last-child{
+  @apply text-gray-300;
+}
+
+.redeem-card.selected{
+  @apply text-white bg-gradient-to-r from-purple-700 via-blue-800 to-blue-500;
+}
