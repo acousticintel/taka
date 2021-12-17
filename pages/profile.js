@@ -32,6 +32,7 @@ export default function Profile() {
   }
 
   useEffect(() => {
+    console.log(session)
     if (!loading) {
       if (session) {
         router.push('/profile')

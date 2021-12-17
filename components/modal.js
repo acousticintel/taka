@@ -1,28 +1,34 @@
 import { useRecoilState } from "recoil";
 import { modalState } from "../atoms/modalAtom";
 import { Dialog, Transition } from '@headlessui/react';
-import { Fragment, useRef, useState } from "react";
+import { Fragment, useRef, useState, useEffect } from "react";
 import { CameraIcon } from '@heroicons/react/outline';
 import { db, storage } from '../firebase';
 import { doc, collection, addDoc, updateDoc, serverTimestamp } from "@firebase/firestore";
 import { ref, getDownloadURL, uploadString } from "@firebase/storage";
-
+import QRCode from 'qrcode';
+import { async } from "@firebase/util";
 
 export default function Modal({ session }) {
   const [open, setOpen] = useRecoilState(modalState);
   const filePickerRef = useRef(null);
   const captionRef = useRef(null);
+  const [qrCode, setQrCode] = useState(null);
   const [selectedFile, setSelectedFile] = useState(null);
   const [loading, setLoading] = useState(false);
+
+  useEffect(() => {
+
+  }, [])
 
   const uploadPost = async () => {
     if (loading) return;
     setLoading(true);
-    // 1) Create a post and add to firestore 'posts' collect
+    // 1) Create a post and add to firestore 'user id' collection
     // 2) get the post ID for the newly created post
-    // 3) upload the image to firebase storage with the post
+    // 3) upload the image to firebase storage with the user id
     // 4) get a down load URL from fb storage and update the
-    const docRef = await addDoc(collection(db, 'posts'), {
+    const docRef = await addDoc(collection(db, session.user.uid), {
       username: session.user.name,
       caption: captionRef.current.value,
       profileImg: session.user.image,
@@ -30,15 +36,32 @@ export default function Modal({ session }) {
     })
     console.log("New doc added with ID", docRef.id);
 
-    const imageRef = ref(storage, 'posts/' + docRef.id + '/image');
+    const imageRef = ref(storage, session.user.uid + '/' + docRef.id + '/image');
+    const qrRef = ref(storage, session.user.uid + '/' + docRef.id + '/qr');
 
     await uploadString(imageRef, selectedFile, "data_url").then(async snapshot => {
       const downloadURL = await getDownloadURL(imageRef);
 
-      await updateDoc(doc(db, 'posts', docRef.id), {
+      await updateDoc(doc(db, session.user.uid, docRef.id), {
         image: downloadURL
       })
     });
+
+    // With promises
+    QRCode.toDataURL(`uid: ${session.user.uid} **end** doc: ${docRef.id}`)
+      .then(async (url) =>  {
+        await uploadString(qrRef, url, "data_url").then(async snapshot => {
+          const downloadURL = await getDownloadURL(qrRef);
+
+          await updateDoc(doc(db, session.user.uid, docRef.id), {
+            qr: downloadURL
+          })
+        });
+      })
+      .catch(err => {
+        console.error(err)
+      })
+
     setOpen(false);
     setLoading(false);
     setSelectedFile(null);

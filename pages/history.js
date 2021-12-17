@@ -7,6 +7,7 @@ import { modalState } from '../atoms/modalAtom';
 import Modal from '../components/modal';
 import { db } from '../firebase';
 import { collection, onSnapshot, orderBy, query } from 'firebase/firestore';
+import QrModal from '../components/qrmodal';
 
 export default function History() {
   const router = useRouter();
@@ -14,12 +15,15 @@ export default function History() {
   const [open, setOpen] = useRecoilState(modalState);
 
   const [posts, setPosts] = useState([]);
+  const [qr, setQr] = useState(null);
 
   useEffect(() => {
-    return onSnapshot(query(collection(db, 'posts'), orderBy('timestamp', 'desc')), snapshot => {
-      setPosts(snapshot.docs);
-    })
-  }, [db])
+    if (session) {
+      return onSnapshot(query(collection(db, session?.user.uid), orderBy('timestamp', 'desc')), snapshot => {
+        setPosts(snapshot.docs);
+      })
+    }
+  }, [db, session])
 
   useEffect(() => {
     if (!loading) {
@@ -33,6 +37,7 @@ export default function History() {
 
   return (
     <div className="history-page">
+      <QrModal photo={qr} />
       <h5>Uploaded Photos</h5>
       <div className="section-divider" />
       <section>
@@ -47,11 +52,14 @@ export default function History() {
                   <div className="desc">
                     <h6>Category:</h6>
                     <h6>Description:</h6>
-                    <p>{post.data().caption}</p> 
+                    <p>{post.data().caption}</p>
                   </div>
                   <div className="points">
                     <p>Earned Points</p>
                     <h3>30</h3>
+                  </div>
+                  <div className="image qr" onClick={() => { setQr(post.data().qr); setOpen(true) }}>
+                    <Image src={post.data().qr} layout='fill' />
                   </div>
                 </div>
               )

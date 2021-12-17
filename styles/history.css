@@ -22,8 +22,12 @@
   @apply h-40 w-40 rounded-2xl overflow-hidden relative mx-3;
 }
 
+.history-page .post-card > .image.qr{
+  @apply h-20 w-20 my-auto rounded-2xl overflow-hidden relative mx-3;
+}
+
 .history-page .post-card > .desc{
-  @apply flex-grow pt-5;
+  @apply flex-grow pt-10;
 }
 
 .history-page .post-card > .desc p{
@@ -31,7 +35,7 @@
 }
 
 .history-page .post-card > .points{
-  @apply pt-5 pr-5 text-center;
+  @apply pt-10 pr-5 text-center;
 }
 
 .history-page .post-card > .points p{

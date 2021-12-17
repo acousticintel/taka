@@ -14,5 +14,11 @@ export default NextAuth({
     signIn: "/auth/signin"
   },
   secret: process.env.GOOGLE_CLIENT_SECRET,
-  debug:true
+  debug: true,
+  callbacks: {
+    async session({ session, user, token }) {
+      session.user.uid = token.sub;
+      return session
+    },
+  }
 });
