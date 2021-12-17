@@ -3,6 +3,7 @@
 @import "./signin.css";
 @import "./profile.css";
 @import "./navbar.css";
+@import "./history.css";
 
 @tailwind base;
 @tailwind components;

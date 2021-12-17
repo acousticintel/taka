@@ -1,0 +1,7 @@
+.history-page{
+  @apply bg-white min-h-screen text-gray-800 pt-20 px-4 pb-10; 
+}
+
+.history-page > section{
+  @apply bg-gray-200 px-10 py-12 shadow-lg rounded-3xl my-10;
+}

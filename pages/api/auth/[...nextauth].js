@@ -1,7 +1,5 @@
 import NextAuth from "next-auth";
 import GoogleProvider from "next-auth/providers/google";
-import { db } from "../../../firebase";
-import { FirebaseAdapter } from "@next-auth/firebase-adapter"
 
 export default NextAuth({
   // Configure one or more authentication providers
@@ -15,4 +13,6 @@ export default NextAuth({
   pages: {
     signIn: "/auth/signin"
   },
+  secret: process.env.GOOGLE_CLIENT_SECRET,
+  debug:true
 });
