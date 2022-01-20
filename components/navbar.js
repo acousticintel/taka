@@ -1,4 +1,4 @@
-import { Fragment, useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { signOut, useSession } from 'next-auth/react';
 import Image from 'next/image';
 import { Transition } from '@headlessui/react';
@@ -102,7 +102,9 @@ function Navbar({router}) {
                         onBlur={() => setDropOpen(false)}
                       >
                         <span className="sr-only">Open user menu</span>
-                        <img className="h-8 w-8 rounded-full" src={session.user.image} alt="" />
+                        <div className='relative h-8 w-8 rounded-full overflow-hidden'>
+                          <Image src={session.user.image} layout='fill'/>
+                        </div>
                       </button>
                     </div>
                     <Transition

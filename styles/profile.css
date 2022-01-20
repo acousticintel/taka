@@ -3,7 +3,7 @@
 }
 
 .profile-page > .buttons-sec{
-  @apply flex justify-start my-3;
+  @apply flex justify-start my-3 gap-4;
 }
 
 .profile-page > section{
@@ -19,17 +19,17 @@
 }
 
 .redeem-section{
-  @apply flex mt-5 h-52;
+  @apply flex flex-wrap gap-3 justify-center items-center;
 }
 
 .redeem-card{
-  @apply h-40 w-32 rounded-xl mx-3 my-auto flex justify-center items-center
+  @apply rounded-xl px-6 py-8 flex justify-center items-center
    text-gray-400 bg-white relative overflow-hidden 
    transition-all duration-500 ease-in-out;
 }
 
 .redeem-card.selected{
-  @apply h-44 w-36 ;
+  @apply px-8 py-10;
 }
 
 .redeem-card .grad{

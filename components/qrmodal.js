@@ -1,18 +1,17 @@
-import { useRecoilState } from "recoil";
-import { modalState } from "../atoms/modalAtom";
 import { Dialog, Transition } from '@headlessui/react';
-import { Fragment, useRef, useState, useEffect } from "react";
+import { Fragment } from "react";
 import Image from "next/image";
+import { useData } from '../context/dataContext';
 
 export default function QrModal({ photo }) {
-  const [open, setOpen] = useRecoilState(modalState);
+  const { modal, onSetModal } = useData();
 
   return (
-    <Transition.Root show={open} as={Fragment}>
+    <Transition.Root show={modal} as={Fragment}>
       <Dialog
         as="div"
         className="fixed z-10 inset-0 overflow-y-auto text-gray-800"
-        onClose={setOpen}
+        onClose={onSetModal}
       >
         <div className="flex items-end justify-center min-h-[808px] 
         sm:min-h-screen pt-4 px-4 pb-20 text-center sm:block sm:p-0">

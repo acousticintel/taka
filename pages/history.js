@@ -2,17 +2,15 @@ import { useEffect, useState } from 'react';
 import { useSession } from 'next-auth/react';
 import { useRouter } from 'next/router';
 import Image from 'next/image';
-import { useRecoilState } from "recoil";
-import { modalState } from '../atoms/modalAtom';
-import Modal from '../components/modal';
 import { db } from '../firebase';
 import { collection, onSnapshot, orderBy, query } from 'firebase/firestore';
 import QrModal from '../components/qrmodal';
+import { useData } from '../context/dataContext';
 
 export default function History() {
   const router = useRouter();
   const { data: session, loading } = useSession();
-  const [open, setOpen] = useRecoilState(modalState);
+  const { onSetModal } = useData();
 
   const [posts, setPosts] = useState([]);
   const [qr, setQr] = useState(null);
@@ -51,14 +49,13 @@ export default function History() {
                   </div>
                   <div className="desc">
                     <h6>Category:</h6>
-                    <h6>Description:</h6>
-                    <p>{post.data().caption}</p>
+                    <p>{post.data().category}</p>
                   </div>
                   <div className="points">
                     <p>Earned Points</p>
                     <h3>30</h3>
                   </div>
-                  <div className="image qr" onClick={() => { setQr(post.data().qr); setOpen(true) }}>
+                  <div className="image qr" onClick={() => { setQr(post.data().qr); onSetModal(true) }}>
                     <Image src={post.data().qr} layout='fill' />
                   </div>
                 </div>

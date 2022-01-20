@@ -2,16 +2,15 @@ import { useEffect, useState } from 'react';
 import { useSession } from 'next-auth/react';
 import { useRouter } from 'next/router';
 import Image from 'next/image';
-import { useRecoilState } from "recoil";
-import { modalState } from '../atoms/modalAtom';
 import Modal from '../components/modal';
 import RedeemCard from '../components/redeemcard';
+import { useData } from '../context/dataContext';
+import { points } from '../context/points';
 
 export default function Profile() {
   const router = useRouter();
   const { data: session, loading } = useSession();
-  const [open, setOpen] = useRecoilState(modalState);
-  const [pointBreaks, setPointBreaks] = useState([20,40,60,80,100]);
+  const { onSetModal } = useData();
 
   const handleHistoryClick = e => {
     e.preventDefault();
@@ -32,7 +31,6 @@ export default function Profile() {
   }
 
   useEffect(() => {
-    console.log(session)
     if (!loading) {
       if (session) {
         router.push('/profile')
@@ -52,7 +50,7 @@ export default function Profile() {
           px-8 shadow-lg focus:outline-none border-2 border-purple-300
           focus:shadow-outline transform transition 
           hover:scale-105 duration-300 ease-in-out"
-          onClick={() => setOpen(true)}
+          onClick={() => onSetModal(true)}
         >
           Upload
         </button>
@@ -68,7 +66,7 @@ export default function Profile() {
       <section>
         <h3>Submited Products</h3>
         <div className="section-divider" />
-        <div className="flex justify-around ">
+        <div className="flex flex-col sm:flex-row items-center justify-around">
           <div className="flex items-center" >
             <div className="relative h-10 w-10 mx-2 my-auto">
               <Image src="/assets/tcoin.png" layout='fill' />
@@ -79,7 +77,7 @@ export default function Profile() {
             </div>
           </div>
           <button className="mx-auto lg:mx-4 bg-white 
-          text-gray-800 font-bold rounded-full my-6 py-4 hover:text-red-500
+          text-gray-800 font-bold rounded-full my-6 py-4 hover:text-red-400
           px-8 shadow-lg focus:outline-none border-2 border-red-300
           focus:shadow-outline transform transition 
           hover:scale-105 duration-300 ease-in-out"
@@ -93,7 +91,7 @@ export default function Profile() {
         <div className="section-divider" />
         <div className="redeem-section ">
           {
-            pointBreaks.map((p, i)=>(
+            points && points.map((p, i)=>(
               <RedeemCard points={p} key={i}/>
             ))
           }

@@ -18,10 +18,25 @@ html {
 }
 
 body{
-  @apply leading-normal tracking-normal text-white gradient;
+  @apply leading-normal tracking-normal text-white gradient custom-scroll;
 }
 
 .section-divider{
   @apply bg-gradient-to-r rounded-full from-purple-700 via-blue-800 to-blue-300
    ml-2 mt-1 mb-4 h-0.5 w-7;
+}
+
+/* width */
+.custom-scroll::-webkit-scrollbar {
+  @apply w-2 h-2;
+}
+
+/* Track */
+.custom-scroll::-webkit-scrollbar-track {
+  @apply bg-white;
+}
+
+/* Handle */
+.custom-scroll::-webkit-scrollbar-thumb {
+  @apply bg-orange-300 hover:bg-orange-400 rounded-full bg-opacity-80 transition-colors duration-500;
 }

@@ -1,70 +1,30 @@
-import { useRecoilState } from "recoil";
-import { modalState } from "../atoms/modalAtom";
 import { Dialog, Transition } from '@headlessui/react';
 import { Fragment, useRef, useState, useEffect } from "react";
-import { CameraIcon } from '@heroicons/react/outline';
-import { db, storage } from '../firebase';
-import { doc, collection, addDoc, updateDoc, serverTimestamp } from "@firebase/firestore";
-import { ref, getDownloadURL, uploadString } from "@firebase/storage";
-import QRCode from 'qrcode';
-import { async } from "@firebase/util";
+import SelectDropdown from "./selectdropdown";
+import { useData } from "../context/dataContext";
 
 export default function Modal({ session }) {
-  const [open, setOpen] = useRecoilState(modalState);
+  const { modal, onSetModal, uploadPost } = useData();
   const filePickerRef = useRef(null);
   const captionRef = useRef(null);
+  const [cat, setCat] = useState('Phone');
   const [qrCode, setQrCode] = useState(null);
   const [selectedFile, setSelectedFile] = useState(null);
   const [loading, setLoading] = useState(false);
 
-  useEffect(() => {
+  useEffect(() => { }, [])
 
-  }, [])
-
-  const uploadPost = async () => {
+  const uploadPostCall = () => {
     if (loading) return;
     setLoading(true);
-    // 1) Create a post and add to firestore 'user id' collection
-    // 2) get the post ID for the newly created post
-    // 3) upload the image to firebase storage with the user id
-    // 4) get a down load URL from fb storage and update the
-    const docRef = await addDoc(collection(db, session.user.uid), {
-      username: session.user.name,
-      caption: captionRef.current.value,
-      profileImg: session.user.image,
-      timestamp: serverTimestamp()
+    console.log(cat)
+    uploadPost(cat, selectedFile).then(res => {
+      if (res.status === 200) {
+        onSetModal(false);
+        setLoading(false);
+        setSelectedFile(null);
+      }
     })
-    console.log("New doc added with ID", docRef.id);
-
-    const imageRef = ref(storage, session.user.uid + '/' + docRef.id + '/image');
-    const qrRef = ref(storage, session.user.uid + '/' + docRef.id + '/qr');
-
-    await uploadString(imageRef, selectedFile, "data_url").then(async snapshot => {
-      const downloadURL = await getDownloadURL(imageRef);
-
-      await updateDoc(doc(db, session.user.uid, docRef.id), {
-        image: downloadURL
-      })
-    });
-
-    // With promises
-    QRCode.toDataURL(`uid: ${session.user.uid} **end** doc: ${docRef.id}`)
-      .then(async (url) =>  {
-        await uploadString(qrRef, url, "data_url").then(async snapshot => {
-          const downloadURL = await getDownloadURL(qrRef);
-
-          await updateDoc(doc(db, session.user.uid, docRef.id), {
-            qr: downloadURL
-          })
-        });
-      })
-      .catch(err => {
-        console.error(err)
-      })
-
-    setOpen(false);
-    setLoading(false);
-    setSelectedFile(null);
   }
 
   const addImageToPost = (e) => {
@@ -78,15 +38,19 @@ export default function Modal({ session }) {
     };
   };
 
+  const handleChange = (e) => {
+    if(e.value) setCat(String(e.value))
+  };
+
   return (
-    <Transition.Root show={open} as={Fragment}>
+    <Transition.Root show={modal} as={Fragment}>
       <Dialog
         as="div"
         className="fixed z-10 inset-0 overflow-y-auto text-gray-800"
-        onClose={setOpen}
+        onClose={onSetModal}
       >
-        <div className="flex items-end justify-center min-h-[808px] 
-        sm:min-h-screen pt-4 px-4 pb-20 text-center sm:block sm:p-0">
+        <div className="flex items-center justify-center min-h-[808px] 
+        sm:min-h-screen">
           <Transition.Child
             as={Fragment}
             enter="ease-out duration-300"
@@ -112,35 +76,29 @@ export default function Modal({ session }) {
             enterTo="opacity-100 translate-y-0 sm:scale-100"
             leave="ease-in duration-200"
             leaveFrom="opacity-100 translate-y-0 sm:scale-100"
-            leaveTo="opacity-0 translate-y-4 sm:t ranslate-y-0 sm:scale-95"
+            leaveTo="opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95"
           >
             <div
               className="inline-block align-bottom bg-white rounded-lg px-4
               pt-5 pb-4 text-left overflow-hidden shadow-xl transform transition-all
               sm:my-8 sm:align-middle sm:max-w-sm sm:w-full sm:p-6">
-              {
-                selectedFile ? (
-                  <img src={selectedFile} className="max-w-40 " onClick={() => setSelectedFile(null)} alt="" />
-                ) : (
-                  <div
-                    onClick={() => filePickerRef.current.click()}
-                    className="mx-auto flex items-center justify-center 
-                    h-12 w-12 rounded-full bg-red-100 cursor-pointer">
-                    <CameraIcon
-                      className="h-6 w-6 text-red-600"
-                      aria-hidden="true"
-                    />
-                  </div>
-                )
-              }
-
               <div className="mt-3 text-center sm:mt-5">
                 <Dialog.Title
                   as="h3"
                   className="text-lg leading-6 font-medium text-gray-900"
                 >
-                  Upload a photo
+                  Select a Category
                 </Dialog.Title>
+                {/**
+                 * <div className="mt-4 mb-6">
+                  <input
+                    className="border-none p-3 focus:ring-0 w-full text-center"
+                    type="text"
+                    ref={captionRef}
+                    placeholder="Please enter a caption..."
+                  />
+                </div>
+                 */}
                 <div>
                   <input
                     ref={filePickerRef}
@@ -149,26 +107,72 @@ export default function Modal({ session }) {
                     onChange={addImageToPost}
                   />
                 </div>
-                <div className="mt-2">
-                  <input
-                    className="border-none p-3 focus:ring-0 w-full text-center"
-                    type="text"
-                    ref={captionRef}
-                    placeholder="Please enter a caption..."
+                <div className='my-6'>
+                  <SelectDropdown
+                    value={cat}
+                    list={['Phone', 'Laptop', 'Computer', 'Other']}
+                    change={handleChange}
                   />
                 </div>
               </div>
-              <div className="mt-5 sm:mt-6">
+              {
+                selectedFile ? (
+                  <div className="relative">
+                    <img src={selectedFile} className="max-w-40 " alt="" />
+                    <button
+                      className='absolute z-20 bg-red-300 hover:bg-red-500 -top-2 -right-2 p-1 rounded-full'
+                      onClick={() => setSelectedFile(null)}
+                    >
+                      <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2m7-2a9 9 0 11-18 0 9 9 0 0118 0z" />
+                      </svg>
+                    </button>
+                  </div>
+                ) : (
+                  <div className="flex justify-center mt-8">
+                    <div className="rounded-lg bg-gray-50 lg:w-1/2">
+                      <div className="m-4">
+                        <Dialog.Title
+                          as="h3"
+                          className="text-lg text-center leading-6 font-medium text-gray-500 py-4"
+                        >
+                          Upload Image (jpg,png,svg,jpeg)
+                        </Dialog.Title>
+                        <div
+                          className="flex items-center justify-center w-full"
+                          onMouseDown={() => filePickerRef.current.click()}
+                        >
+                          <label className="flex flex-col w-full h-32 border-4 border-dashed hover:bg-gray-100 hover:border-gray-300">
+                            <div className="flex flex-col items-center justify-center pt-7">
+                              <svg xmlns="http://www.w3.org/2000/svg"
+                                className="w-12 h-12 text-gray-400 group-hover:text-gray-600" viewBox="0 0 20 20"
+                                fill="currentColor">
+                                <path fillRule="evenodd"
+                                  d="M4 3a2 2 0 00-2 2v10a2 2 0 002 2h12a2 2 0 002-2V5a2 2 0 00-2-2H4zm12 12H4l4-8 3 6 2-4 3 6z"
+                                  clipRule="evenodd" />
+                              </svg>
+                              <p className="pt-1 text-sm tracking-wider text-gray-400 group-hover:text-gray-600">
+                                Select a photo</p>
+                            </div>
+                            <input type="file" className="opacity-0" />
+                          </label>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                )
+              }
+              <div className="mt-5 sm:mt-6 flex justify-center">
                 <button
                   type="button"
                   disabled={!selectedFile}
-                  className=" inline-flex justify-center w-full rounded-md
-                    border border-transparent shadow-sm px-4 py-2 bg-red-600
-                    text-base font-medium items-center focus:ring-2 focus:ring-offset-2
-                    focus:ring-red-500 sm:text-sm text-white hover:bg-red-700
+                  className=" inline-flex justify-center items-center w-2/3 rounded-md
+                    border border-transparent shadow-sm px-4 py-6 bg-red-300
+                    text-base font-medium focus:ring-2 focus:ring-offset-2
+                    focus:ring-red-500 sm:text-sm text-white hover:bg-red-500
                     focus:outline-none disabled:bg-gray-300 
                     disabled:cursor-not-allowed hover:disabled:bg-gray-300"
-                  onClick={uploadPost}
+                  onClick={uploadPostCall}
                 >
                   {loading ? 'Uploading' : 'Upload Post'}
                 </button>
