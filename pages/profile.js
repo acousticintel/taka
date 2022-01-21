@@ -1,102 +1,90 @@
-import { useEffect, useState } from 'react';
-import { useSession } from 'next-auth/react';
 import { useRouter } from 'next/router';
-import Image from 'next/image';
-import Modal from '../components/modal';
-import RedeemCard from '../components/redeemcard';
+//custom pack
+import { useSession } from 'next-auth/react';
+import { motion } from 'framer-motion';
+//custom func
 import { useData } from '../context/dataContext';
-import { points } from '../context/points';
+import { AuthGuard } from '../components/layout/authGuard';
+//custom
+import Modal from '../components/modal';
+import RedeemSection from '../components/redeem';
+import PointsSection from '../components/points';
+
+const contVar = {
+  hide: {
+  },
+  show: {
+    transition: {
+      delayChildren: .3,
+      when: 'beforeChildren',
+      staggerChildren: .5,
+    }
+  }
+}
+
+const riseVar = {
+  hide: {
+    opacity: 0,
+    y: 50,
+    scale: 0.95
+  },
+  show: {
+    opacity: 1,
+    y: 0,
+    scale: 1,
+    transition: {
+      duration: .5
+    }
+  }
+}
 
 export default function Profile() {
   const router = useRouter();
-  const { data: session, loading } = useSession();
+  const { data: session } = useSession();
   const { onSetModal } = useData();
 
   const handleHistoryClick = e => {
-    e.preventDefault();
-    if (session) {
-      router.push('/history')
-    } else {
-      router.push('/auth/signin')
-    }
+    router.push('/history')
   }
-
-  const handleOffersClick = e => {
-    e.preventDefault();
-    if (session) {
-      router.push('/offers')
-    } else {
-      router.push('/auth/signin')
-    }
-  }
-
-  useEffect(() => {
-    if (!loading) {
-      if (session) {
-        router.push('/profile')
-      } else {
-        router.push('/auth/signin')
-      }
-    }
-  }, [session])
 
   return (
-    <div className="profile-page">
-      <Modal session={session} />
-      <h5>Hello {session?.user.name}</h5>
-      <div className="buttons-sec">
-        <button className="mx-auto lg:mx-0 bg-white 
-          text-gray-800 font-bold rounded-full my-6 py-4 hover:text-purple-500
-          px-8 shadow-lg focus:outline-none border-2 border-purple-300
+    <AuthGuard>
+      <motion.div
+        className='profile-page'
+        variants={contVar}
+        initial='hide'
+        animate='show'
+      >
+        <Modal session={session} />
+        <motion.h5 variants={riseVar}>
+          Hello {session?.user.name}
+        </motion.h5>
+        <motion.div className='buttons-sec' variants={riseVar}>
+          <button className='mx-auto lg:mx-0 bg-white 
+          text-gray-800 font-bold rounded-full my-6 py-4 hover:text-blue-500
+          px-8 shadow-lg focus:outline-none border-2 border-blue-300
           focus:shadow-outline transform transition 
-          hover:scale-105 duration-300 ease-in-out"
-          onClick={() => onSetModal(true)}
-        >
-          Upload
-        </button>
-        <button className="mx-auto lg:mx-4 bg-white 
-          text-gray-800 font-bold rounded-full my-6 py-4 hover:text-purple-500
-          px-8 shadow-lg focus:outline-none border-2 border-purple-300
-          focus:shadow-outline transform transition 
-          hover:scale-105 duration-300 ease-in-out"
-          onClick={handleHistoryClick}>
-          History
-        </button>
-      </div>
-      <section>
-        <h3>Submited Products</h3>
-        <div className="section-divider" />
-        <div className="flex flex-col sm:flex-row items-center justify-around">
-          <div className="flex items-center" >
-            <div className="relative h-10 w-10 mx-2 my-auto">
-              <Image src="/assets/tcoin.png" layout='fill' />
-            </div>
-            <div className="flex flex-col">
-              <span className="text-3xl font-bold">35</span>
-              <span className="text-xs">Rewarded Points</span>
-            </div>
-          </div>
-          <button className="mx-auto lg:mx-4 bg-white 
-          text-gray-800 font-bold rounded-full my-6 py-4 hover:text-red-400
-          px-8 shadow-lg focus:outline-none border-2 border-red-300
-          focus:shadow-outline transform transition 
-          hover:scale-105 duration-300 ease-in-out"
-          onClick={handleOffersClick}>
-            Offers
+          hover:scale-105 duration-300 ease-in-out'
+            onClick={() => onSetModal(true)}
+          >
+            Upload
           </button>
-        </div>
-      </section>
-      <section>
-        <h3>Redeem Points</h3>
-        <div className="section-divider" />
-        <div className="redeem-section ">
-          {
-            points && points.map((p, i)=>(
-              <RedeemCard points={p} key={i}/>
-            ))
-          }
-        </div>
-      </section>
-    </div>
+          <button className='mx-auto lg:mx-4 bg-white 
+          text-gray-800 font-bold rounded-full my-6 py-4 hover:text-blue-500
+          px-8 shadow-lg focus:outline-none border-2 border-blue-300
+          focus:shadow-outline transform transition 
+          hover:scale-105 duration-300 ease-in-out'
+            onClick={handleHistoryClick}>
+            History
+          </button>
+        </motion.div>
+        <motion.section variants={riseVar}>
+          <PointsSection />
+        </motion.section>
+        <motion.section variants={riseVar}>
+          <RedeemSection />
+        </motion.section>
+      </motion.div>
+    </AuthGuard>
   )
 }

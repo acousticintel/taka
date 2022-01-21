@@ -1,5 +1,6 @@
 .profile-page{
-  @apply bg-white h-full text-gray-800 pt-20 px-4 pb-10; 
+  @apply bg-white min-h-screen text-gray-800 pt-10 mx-auto
+  px-6 md:max-w-lg lg:max-w-xl xl:max-w-2xl; 
 }
 
 .profile-page > .buttons-sec{
@@ -7,7 +8,7 @@
 }
 
 .profile-page > section{
-  @apply bg-gray-100 px-10 py-12 shadow-lg rounded-3xl my-10;
+  @apply bg-gray-100 px-6 py-6 shadow-lg rounded-3xl my-10;
 }
 
 .profile-page h5{
@@ -19,17 +20,17 @@
 }
 
 .redeem-section{
-  @apply flex flex-wrap gap-3 justify-center items-center;
+  @apply flex flex-wrap gap-4 justify-center items-center py-6 px-2;
 }
 
 .redeem-card{
-  @apply rounded-xl px-6 py-8 flex justify-center items-center
+  @apply rounded-xl px-10 py-16 flex justify-center items-center
    text-gray-400 bg-white relative overflow-hidden 
-   transition-all duration-500 ease-in-out;
+   transition-all duration-500 ease-in-out transform scale-100 origin-center;
 }
 
 .redeem-card.selected{
-  @apply px-8 py-10;
+  @apply transform scale-105;
 }
 
 .redeem-card .grad{

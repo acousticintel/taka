@@ -1,5 +1,5 @@
 .history-page{
-  @apply bg-white min-h-screen text-gray-800 pt-20 px-4 pb-10; 
+  @apply bg-white min-h-screen text-gray-800 pt-8 px-4 pb-8; 
 }
 
 .history-page > section{
