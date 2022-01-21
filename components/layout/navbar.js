@@ -11,7 +11,7 @@ function Navbar({ router }) {
   const [dropOpen, setDropOpen] = useState(false);
   const [clientWindowHeight, setClientWindowHeight] = useState('');
 
-  const [backgroundTransparacy, setBackgroundTransparacy] = useState('bg-transparent');
+  const [backgroundTransparacy, setBackgroundTransparacy] = useState('gradient');
   const [textColor, setTextColor] = useState('text-white');
   const [boxShadow, setBoxShadow] = useState('drop-shadow-none');
 
