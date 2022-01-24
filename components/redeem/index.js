@@ -26,7 +26,7 @@ const riseVar = {
     y: 0,
     scale:1,
     transition: {
-      duration: .75
+      duration: .5
     }
   }
 }

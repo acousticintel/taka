@@ -2,6 +2,7 @@ import { useRouter } from 'next/router';
 import Image from 'next/image';
 //custom packs
 import { motion } from 'framer-motion';
+import { useData } from '../../context/dataContext';
 
 const contVar = {
   hide: {
@@ -25,7 +26,7 @@ const coinVar = {
     x: 0,
     rotate: 0,
     transition: {
-      duration: .5
+      duration: .25
     }
   }
 }
@@ -39,7 +40,7 @@ const textVar = {
     opacity: 1,
     x: 0,
     transition: {
-      duration: .5,
+      duration: .25,
       ease: 'easeIn'
     }
   }
@@ -55,7 +56,7 @@ const btnVar = {
     x: 0,
     transition: {
       delay: 2,
-      duration: 1,
+      duration: .3,
       ease: 'easeIn'
     }
   }
@@ -63,6 +64,7 @@ const btnVar = {
 
 export default function PointsSection() {
   const router = useRouter();
+  const { userPoints } = useData();
 
   const handleOffersClick = e => {
     e.preventDefault();
@@ -91,7 +93,7 @@ export default function PointsSection() {
           <div className='flex flex-col'>
             <motion.span
               variants={textVar}
-              className='text-3xl font-bold'>35</motion.span>
+              className='text-3xl font-bold'>{userPoints}</motion.span>
             <motion.span
               variants={textVar}
               className='text-xs font-semibold text-blue-500'>Rewarded Points</motion.span>

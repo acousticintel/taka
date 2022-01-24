@@ -32,7 +32,7 @@ export default function History() {
                     </div>
                     <div className='points'>
                       <p>Earned Points</p>
-                      <h3>30</h3>
+                      <h3>{post.data().points}</h3>
                     </div>
                     <div className='image qr' onClick={() => { setQr(post.data().qr); onSetModal(true) }}>
                       <Image src={post.data().qr} layout='fill' alt='' />

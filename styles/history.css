@@ -3,7 +3,7 @@
 }
 
 .history-page > section{
-  @apply bg-gray-200 h-full px-10 py-12 shadow-lg rounded-3xl my-10;
+  @apply bg-gray-200 h-full px-10 py-12 rounded-xl my-10;
 }
 
 .history-page h3{

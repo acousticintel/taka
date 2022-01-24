@@ -1,0 +1,47 @@
+.redeem-page{
+  @apply bg-white min-h-screen text-gray-800 pt-8 px-4 pb-8; 
+}
+
+.redeem-page > section{
+  @apply h-full px-10 my-10;
+}
+
+.redeem-section{
+  @apply flex-col;
+}
+
+.redeem-section > .image{
+  @apply relative w-full h-60 object-cover rounded-lg overflow-hidden; 
+}
+
+.redeem-section h1{
+  @apply font-bold text-3xl text-gray-500 text-center;
+}
+
+.redeem-section p{
+  @apply text-lg text-gray-400 text-center px-10;
+}
+
+.redeem-section h6{
+  @apply font-light uppercase text-xs text-gray-400 text-center my-5 px-10;
+}
+
+.coupon{
+  @apply relative bg-blue-500 text-white px-10 pt-3.5 h-14 my-5 rounded-lg;
+}
+
+.coupon > .slice{
+  @apply h-4 w-4 bg-white absolute rounded-full top-1/2 transform -translate-y-1/2;
+}
+
+.coupon > .slice:nth-child(1){
+  @apply -left-2;
+}
+
+.coupon > .slice:nth-child(2){
+  @apply -right-2;
+}
+
+.coupon > span{
+  @apply align-middle;
+}

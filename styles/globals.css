@@ -1,9 +1,11 @@
 /* Font import */
-@import url('https://fonts.googleapis.com/css?family=Source+Sans+Pro:400,700');
+@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@100;200;300;400;500;600;700;800;900&display=swap');
 @import "./signin.css";
 @import "./profile.css";
 @import "./navbar.css";
 @import "./history.css";
+@import "./offers.css";
+@import "./redeem.css";
 
 @tailwind base;
 @tailwind components;
@@ -18,12 +20,12 @@ html {
 }
 
 body{
-  @apply leading-normal tracking-normal text-white custom-scroll;
+  @apply font-body leading-normal tracking-normal text-white custom-scroll;
 }
 
 .section-divider{
   @apply bg-gradient-to-r rounded-full from-purple-700 via-blue-800 to-blue-300
-   ml-2 mt-1 mb-4 h-0.5 w-20 ;
+   ml-2 mt-1 mb-4 h-0.5 w-10 ;
 }
 
 /* width */

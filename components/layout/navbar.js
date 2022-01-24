@@ -1,9 +1,10 @@
 import { useEffect, useState } from 'react';
-import { signOut, useSession } from 'next-auth/react';
+import { withRouter } from 'next/router';
 import Image from 'next/image';
-import { Transition } from '@headlessui/react';
 import Link from 'next/link';
-import { withRouter } from 'next/router'
+
+import { Transition } from '@headlessui/react';
+import { signOut, useSession } from 'next-auth/react';
 
 function Navbar({ router }) {
   const { data: session, status } = useSession();
@@ -31,12 +32,12 @@ function Navbar({ router }) {
 
   useEffect(() => {
     if (router.pathname !== '/') {
-      setBoxShadow('drop-shadow-lg');
+      setBoxShadow('drop-shadow-md');
       setTextColor('text-gray-800')
       setBackgroundTransparacy('bg-white');
     } else {
       if (clientWindowHeight > 10) {
-        setBoxShadow('drop-shadow-lg');
+        setBoxShadow('drop-shadow-md');
         setTextColor('text-gray-800')
         setBackgroundTransparacy('bg-white');
       } else {
@@ -137,7 +138,7 @@ function Navbar({ router }) {
                   <button
                     className='mx-auto lg:mx-0 bg-white 
                     text-gray-800 font-bold rounded-full my-6 
-                    py-2 px-4 shadow-lg focus:outline-none 
+                    py-2 px-4 shadow-md focus:outline-none 
                     focus:shadow-outline transform transition 
                     hover:scale-105 duration-300 ease-in-out'>
                     Login / SignUp

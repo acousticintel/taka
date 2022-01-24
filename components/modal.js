@@ -3,7 +3,7 @@ import { Dialog, Transition } from '@headlessui/react';
 import Image from 'next/image';
 //custom
 import { useData } from '../context/dataContext';
-import SelectDropdown from './selectdropdown';
+import SelectDropdown from './comps/selectdropdown';
 
 
 export default function Modal() {
@@ -11,7 +11,6 @@ export default function Modal() {
   const filePickerRef = useRef(null);
   const captionRef = useRef(null);
   const [cat, setCat] = useState('Phone');
-  const [qrCode, setQrCode] = useState(null);
   const [selectedFile, setSelectedFile] = useState(null);
   const [loading, setLoading] = useState(false);
 
@@ -20,12 +19,13 @@ export default function Modal() {
   const uploadPostCall = () => {
     if (loading) return;
     setLoading(true);
-    console.log(cat)
     uploadPost(cat, selectedFile).then(res => {
       if (res.status === 200) {
         onSetModal(false);
         setLoading(false);
         setSelectedFile(null);
+      }else if(res.status === 500){
+        console.log(res.mes)
       }
     })
   }
@@ -52,8 +52,7 @@ export default function Modal() {
         className='fixed z-10 inset-0 overflow-y-auto text-gray-800'
         onClose={onSetModal}
       >
-        <div className='flex items-center justify-center min-h-[808px] 
-        sm:min-h-screen'>
+        <div className='flex items-center justify-center min-h-[808px] sm:min-h-screen'>
           <Transition.Child
             as={Fragment}
             enter='ease-out duration-300'
@@ -83,8 +82,8 @@ export default function Modal() {
           >
             <div
               className='inline-block align-bottom bg-white rounded-lg px-4
-              pt-5 pb-4 text-left overflow-hidden shadow-xl transform transition-all
-              sm:my-8 sm:align-middle sm:max-w-sm sm:w-full sm:p-6'>
+                pt-5 pb-4 text-left overflow-hidden shadow-xl transform transition-all
+                sm:my-8 sm:align-middle sm:max-w-sm sm:w-full sm:p-6'>
               <div className='mt-3 text-center sm:mt-5'>
                 <Dialog.Title
                   as='h3'
@@ -121,11 +120,12 @@ export default function Modal() {
               {
                 selectedFile ? (
                   <div className='relative'>
-                    <div className='relative max-w-40'>
+                    <div className='relative max-w-60 h-60 rounded-md overflow-hidden'>
                       <Image src={selectedFile} layout='fill'  alt='' />
                     </div>
                     <button
-                      className='absolute z-20 bg-red-300 hover:bg-red-500 -top-2 -right-2 p-1 rounded-full'
+                      className='absolute z-20 bg-red-400 -top-2 -right-2 p-1 rounded-full
+                        transform scale-95 hover:scale-110 duration-200'
                       onClick={() => setSelectedFile(null)}
                     >
                       <svg xmlns='http://www.w3.org/2000/svg' className='h-6 w-6 text-white' fill='none' viewBox='0 0 24 24' stroke='currentColor'>
@@ -171,15 +171,16 @@ export default function Modal() {
                 <button
                   type='button'
                   disabled={!selectedFile}
-                  className=' inline-flex justify-center items-center w-2/3 rounded-md
-                    border border-transparent shadow-sm px-4 py-6 bg-red-300
+                  className='inline-flex justify-center items-center w-2/3 rounded-md
+                    border border-transparent shadow-sm px-3 py-4 bg-red-400
                     text-base font-medium focus:ring-2 focus:ring-offset-2
                     focus:ring-red-500 sm:text-sm text-white hover:bg-red-500
                     focus:outline-none disabled:bg-gray-300 
-                    disabled:cursor-not-allowed hover:disabled:bg-gray-300'
+                    disabled:cursor-not-allowed hover:disabled:bg-gray-300
+                    transition-all transform scale-95 hover:scale-105 duration-200'
                   onClick={uploadPostCall}
                 >
-                  {loading ? 'Uploading' : 'Upload Post'}
+                  {loading ? 'Uploading..' : 'Upload Post'}
                 </button>
               </div>
 

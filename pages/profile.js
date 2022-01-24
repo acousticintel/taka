@@ -15,9 +15,9 @@ const contVar = {
   },
   show: {
     transition: {
-      delayChildren: .3,
+      delayChildren: 1,
       when: 'beforeChildren',
-      staggerChildren: .5,
+      staggerChildren: .15,
     }
   }
 }
@@ -33,7 +33,7 @@ const riseVar = {
     y: 0,
     scale: 1,
     transition: {
-      duration: .5
+      duration: .25
     }
   }
 }
@@ -44,6 +44,7 @@ export default function Profile() {
   const { onSetModal } = useData();
 
   const handleHistoryClick = e => {
+    e.preventDefault();
     router.push('/history')
   }
 

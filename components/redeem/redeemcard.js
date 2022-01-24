@@ -1,14 +1,28 @@
 import { useState } from 'react';
+import { useRouter } from 'next/router';
+//custom pack
 import { Transition } from '@headlessui/react';
+//custom
+import { useData } from '../../context/dataContext';
 
 export default function RedeemCard({ points }) {
+  const router = useRouter();
+  const { onSetRedeemFilter } = useData();
   const [hover, setHover] = useState(false);
+
+  const handleRedeemClick = e => {
+    e.preventDefault();
+    onSetRedeemFilter(points);
+    router.push('/offers')
+  }
+
 
   return (
     <div
       className={`redeem-card ${hover && 'selected'}`}
       onMouseEnter={() => setHover(true)}
       onMouseLeave={() => setHover(false)}
+      onMouseDown={handleRedeemClick}
     >
       <Transition
         show={hover}
