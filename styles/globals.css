@@ -20,6 +20,7 @@ html {
 }
 
 body{
+  font-family: 'Outfit';
   @apply font-body leading-normal tracking-normal text-white custom-scroll;
 }
 
