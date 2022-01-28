@@ -31,6 +31,7 @@ function useProvideData() {
   //hold app states
   const [userPoints, setUserPoints] = useState(null);
   const [modal, setModal] = useState(false);
+  const [side, setSide] = useState(false);
   const [redeem, setRedeem] = useState(false);
   //hold data
   const [posts, setPosts] = useState([]);
@@ -41,6 +42,7 @@ function useProvideData() {
   const [filDiscounts, setFilDiscounts] = useState([]);
 
   const onSetModal = (val) => setModal(val);
+  const onSetSide = (val) => setSide(val);
   const onSetUserPoints = (val) => setUserPoints(val);
   const onSetRedeem = (val) => setRedeem(val);
   const onSetRedeemFilter = (val) => setRedeemFilter(val);
@@ -220,6 +222,7 @@ function useProvideData() {
 
   return {
     modal, onSetModal,
+    side, onSetSide,
     redeem, onSetRedeem,
     redeemFilter, onSetRedeemFilter,
     userPoints, posts,

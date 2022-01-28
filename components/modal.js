@@ -14,7 +14,7 @@ export default function Modal() {
   const [selectedFile, setSelectedFile] = useState(null);
   const [loading, setLoading] = useState(false);
 
-  useEffect(() => { }, [])
+  //useEffect(() => { }, [])
 
   const uploadPostCall = () => {
     if (loading) return;

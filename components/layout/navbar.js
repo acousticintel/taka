@@ -5,15 +5,18 @@ import Link from 'next/link';
 
 import { Transition } from '@headlessui/react';
 import { signOut, useSession } from 'next-auth/react';
+import Menu from '../comps/menu';
+import { useData } from '../../context/dataContext';
 
 function Navbar({ router }) {
   const { data: session, status } = useSession();
+  const { side } = useData();
 
   const [dropOpen, setDropOpen] = useState(false);
   const [clientWindowHeight, setClientWindowHeight] = useState('');
 
   const [backgroundTransparacy, setBackgroundTransparacy] = useState('gradient');
-  const [textColor, setTextColor] = useState('text-white');
+  const [textColor, setTextColor] = useState('text-emerald-900');
   const [boxShadow, setBoxShadow] = useState('drop-shadow-none');
 
   useEffect(() => {
@@ -31,27 +34,30 @@ function Navbar({ router }) {
   }
 
   useEffect(() => {
-    if (router.pathname !== '/') {
-      setBoxShadow('drop-shadow-md');
-      setTextColor('text-gray-800')
-      setBackgroundTransparacy('bg-white');
+    if (side) {
+      setTextColor('text-lime-50')
+      setBoxShadow('drop-shadow-none');
+      setBackgroundTransparacy('bg-transparent');
     } else {
-      if (clientWindowHeight > 10) {
+      setTextColor('text-emerald-900')
+      if (router.pathname !== '/') {
         setBoxShadow('drop-shadow-md');
-        setTextColor('text-gray-800')
         setBackgroundTransparacy('bg-white');
       } else {
-        setBoxShadow('drop-shadow-none');
-        setTextColor('text-white')
-        setBackgroundTransparacy('gradient');
-      }
-    };
-  }, [clientWindowHeight, router]);
+        if (clientWindowHeight > 10) {
+          setBoxShadow('drop-shadow-md');
+          setBackgroundTransparacy('bg-white');
+        } else {
+          setBoxShadow('drop-shadow-none');
+          setBackgroundTransparacy('bg-transparent');
+        }
+      };
+    }
+  }, [clientWindowHeight, router, side]);
 
   return (
     <nav
-      className={`fixed w-full z-30 top-0  
-      transition-all duration-500 ease-in-out
+      className={`fixed w-full z-50 top-0 transition-all duration-200 ease-in-out
       ${textColor} ${backgroundTransparacy} ${boxShadow}`}
     >
       <div className='max-w-7xl mx-auto px-2 sm:px-6 lg:px-8'>
@@ -67,20 +73,16 @@ function Navbar({ router }) {
                 TAKA
               </div>
             </Link>
-            {
-              //add to show other links
-              //sm:block 
-            }
           </div>
 
           <div className='absolute inset-y-0 right-0 flex items-center pr-2 
             sm:static sm:inset-auto sm:ml-6 sm:pr-0'>
             {
-              status !== 'loading' && 
+              status !== 'loading' &&
               status !== 'unauthenticated' && (
                 <>
                   <button type='button' className='bg-gray-800 p-1 rounded-full 
-            text-gray-400 hover:text-white focus:outline-none focus:ring-2 
+            text-gray-400 hover:text-lime-50 focus:outline-none focus:ring-2 
               focus:ring-offset-2 focus:ring-offset-gray-800 focus:ring-white'>
                     {
                       //Heroicon name: outline/bell
@@ -106,7 +108,7 @@ function Navbar({ router }) {
                       >
                         <span className='sr-only'>Open user menu</span>
                         <div className='relative h-8 w-8 rounded-full overflow-hidden'>
-                          <Image src={session.user.image} layout='fill' alt='pp'/>
+                          <Image src={session.user.image} layout='fill' alt='pp' />
                         </div>
                       </button>
                     </div>
@@ -146,7 +148,7 @@ function Navbar({ router }) {
                 </Link>
               )
             }
-
+            <Menu />
           </div>
         </div>
       </div>

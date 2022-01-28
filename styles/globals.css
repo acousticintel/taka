@@ -6,6 +6,7 @@
 @import "./history.css";
 @import "./offers.css";
 @import "./redeem.css";
+@import "./hero.css";
 
 @tailwind base;
 @tailwind components;
@@ -20,7 +21,7 @@ html {
 }
 
 body{
-  @apply font-body leading-normal tracking-normal text-white custom-scroll;
+  @apply font-body leading-normal tracking-normal text-white custom-scroll bg-lime-50;
 }
 
 .section-divider{
@@ -44,5 +45,5 @@ body{
 }
 
 .page-content{
-  @apply pt-16;
+  @apply font-light text-emerald-900;
 }
