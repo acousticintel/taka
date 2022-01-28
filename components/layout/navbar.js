@@ -15,7 +15,8 @@ function Navbar({ router }) {
   const [dropOpen, setDropOpen] = useState(false);
   const [clientWindowHeight, setClientWindowHeight] = useState('');
 
-  const [backgroundTransparacy, setBackgroundTransparacy] = useState('gradient');
+  const [backgroundTransparacy, setBackgroundTransparacy] = useState('transparent');
+  const [button, setButton] = useState('bg-white');
   const [textColor, setTextColor] = useState('text-emerald-900');
   const [boxShadow, setBoxShadow] = useState('drop-shadow-none');
 
@@ -41,13 +42,16 @@ function Navbar({ router }) {
     } else {
       setTextColor('text-emerald-900')
       if (router.pathname !== '/') {
+        setButton('bg-lime-50');
         setBoxShadow('drop-shadow-md');
         setBackgroundTransparacy('bg-white');
       } else {
         if (clientWindowHeight > 10) {
+          setButton('bg-lime-50');
           setBoxShadow('drop-shadow-md');
           setBackgroundTransparacy('bg-white');
         } else {
+          setButton('bg-white');
           setBoxShadow('drop-shadow-none');
           setBackgroundTransparacy('bg-transparent');
         }
@@ -138,11 +142,11 @@ function Navbar({ router }) {
               status === 'unauthenticated' && (
                 <Link href='/auth/signin' passHref={true}>
                   <button
-                    className='mx-auto lg:mx-0 bg-white 
+                    className={`mx-auto lg:mx-0 ${button}
                     text-gray-800 font-bold rounded-full my-6 
                     py-2 px-4 shadow-md focus:outline-none 
                     focus:shadow-outline transform transition 
-                    hover:scale-105 duration-300 ease-in-out'>
+                    hover:scale-105 duration-300 ease-in-out`}>
                     Login / SignUp
                   </button>
                 </Link>
