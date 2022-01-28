@@ -343,7 +343,7 @@ export default function Hero() {
             </div>
           </div>
         </div>
-        <div className='relative h-72 w-full -bottom-1.5 z-40'>
+        <div className='relative h-72 w-full -bottom-1.5'>
           <Image src='/assets/neutral.png' alt='' layout='fill' objectFit='contain' />
         </div>
       </section>
