@@ -85,8 +85,8 @@ function Navbar({ router }) {
               status !== 'loading' &&
               status !== 'unauthenticated' && (
                 <>
-                  <button type='button' className='bg-gray-800 p-1 rounded-full 
-            text-gray-400 hover:text-lime-50 focus:outline-none focus:ring-2 
+                  <button type='button' className='bg-transparent p-1 rounded-full 
+            text-lime-50 hover:text-lime-100 focus:outline-none focus:ring-2 
               focus:ring-offset-2 focus:ring-offset-gray-800 focus:ring-white'>
                     {
                       //Heroicon name: outline/bell

@@ -35,7 +35,7 @@ export default function SideMenu() {
           initial='hide'
           variants={dropVar}
           className='fixed top-0 left-0 flex flex-col flex-1 inset-0 z-40 
-          bg-emerald-900 max-h-screen overflow-hidden pt-20'>
+          bg-emerald-900 text-lime-50 max-h-screen overflow-hidden pt-20'>
           {
             routes?.length > 0 && routes.map((r,i)=>(
               <SidebarItem route={r} key={i}/>

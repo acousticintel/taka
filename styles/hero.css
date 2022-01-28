@@ -1,6 +1,6 @@
 .hero {
   @apply flex flex-col md:flex-row md:h-auto max-w-7xl 
-   pt-20 pb-10 mx-auto bg-lime-50;
+  pb-10 mx-auto bg-lime-50;
 }
 
 .hero > .right {

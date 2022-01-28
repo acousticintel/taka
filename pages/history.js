@@ -15,7 +15,7 @@ export default function History() {
     <AuthGuard>
       <div className='history-page'>
         <QrModal photo={qr} />
-        <h5>Uploaded Photos</h5>
+        <h3>Uploaded Photos</h3>
         <div className='section-divider' />
         <section>
           <div className='flex flex-col'>

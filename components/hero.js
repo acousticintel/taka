@@ -23,7 +23,7 @@ export default function Hero() {
       <Process />
       <section className='bg-lime-50 pt-8 overflow-hidden'>
         <div className='container max-w-5xl mx-auto my-8 relative'>
-          <div className='absolute z-0 w-96 h-96 -right-40 -bottom-52 opacity-80'>
+          <div className='absolute z-0 w-96 h-96 -right-40 -bottom-52 opacity-90'>
             <img src="/assets/blob1.svg" alt="" />
           </div>
           <h1 className='w-full my-2 text-5xl font-bold leading-tight text-center text-emerald-800'>

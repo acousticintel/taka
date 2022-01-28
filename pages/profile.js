@@ -44,7 +44,7 @@ export default function Profile() {
   const { onSetModal } = useData();
 
   const handleHistoryClick = e => {
-    e.preventDefault();
+    e.preventDefault(); 
     router.push('/history')
   }
 
@@ -61,20 +61,12 @@ export default function Profile() {
           Hello {session?.user.name}
         </motion.h5>
         <motion.div className='buttons-sec' variants={riseVar}>
-          <button className='mx-auto lg:mx-0 bg-white 
-          text-gray-800 font-bold rounded-full my-6 py-4 hover:text-blue-500
-          px-8 shadow-lg focus:outline-none border-2 border-blue-300
-          focus:shadow-outline transform transition 
-          hover:scale-105 duration-300 ease-in-out'
+          <button className='button'
             onClick={() => onSetModal(true)}
           >
             Upload
           </button>
-          <button className='mx-auto lg:mx-4 bg-white 
-          text-gray-800 font-bold rounded-full my-6 py-4 hover:text-blue-500
-          px-8 shadow-lg focus:outline-none border-2 border-blue-300
-          focus:shadow-outline transform transition 
-          hover:scale-105 duration-300 ease-in-out'
+          <button className='button'
             onClick={handleHistoryClick}>
             History
           </button>

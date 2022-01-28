@@ -25,7 +25,7 @@ body{
 }
 
 .section-divider{
-  @apply bg-gradient-to-r rounded-full from-purple-700 via-blue-800 to-blue-300
+  @apply bg-gradient-to-r rounded-full  from-sky-600  to-emerald-400
    ml-2 mt-1 mb-4 h-0.5 w-10 ;
 }
 
@@ -41,9 +41,10 @@ body{
 
 /* Handle */
 .custom-scroll::-webkit-scrollbar-thumb {
-  @apply bg-orange-300 hover:bg-orange-400 rounded-full bg-opacity-80 transition-colors duration-500;
+  @apply bg-emerald-900 hover:bg-emerald-700 rounded-full 
+  bg-opacity-70 transition-colors duration-500;
 }
 
 .page-content{
-  @apply font-light text-emerald-900;
+  @apply font-light text-emerald-900 pt-20;
 }

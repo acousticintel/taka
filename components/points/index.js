@@ -72,7 +72,7 @@ export default function PointsSection() {
   }
 
   return (
-    <div>
+    <div className='points-sec'>
       <h3>Submited Products</h3>
       <div className='section-divider' />
       <div className='flex flex-col sm:flex-row items-center justify-around px-10 gap-8'>
@@ -93,21 +93,17 @@ export default function PointsSection() {
           <div className='flex flex-col'>
             <motion.span
               variants={textVar}
-              className='text-3xl font-bold'>{userPoints}</motion.span>
+              className='text-3xl font-normal'>{userPoints}</motion.span>
             <motion.span
               variants={textVar}
-              className='text-xs font-semibold text-blue-500'>Rewarded Points</motion.span>
+              className='text-xs font-semibold text-emerald-500'>Rewarded Points</motion.span>
           </div>
         </motion.div>
         <motion.button
           variants={btnVar}
           initial='hide'
           animate='show'
-          className='mx-auto lg:mx-4 bg-white 
-          text-gray-800 font-bold rounded-full my-6 py-4 hover:text-blue-400
-          px-8 shadow-lg focus:outline-none border-2 border-blue-300
-          focus:shadow-outline transform transition 
-          hover:scale-105 duration-300 ease-in-out'
+          className='button'
           onClick={handleOffersClick}>
           Offers
         </motion.button>

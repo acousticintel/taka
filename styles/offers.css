@@ -1,9 +1,13 @@
 .offers-page{
-  @apply bg-white min-h-screen text-gray-800 pt-8 px-4 pb-8; 
+  @apply min-h-screen text-gray-800 pt-8 px-4 pb-8; 
 }
 
 .offers-page > section{
-  @apply bg-gray-200 h-full px-10 py-12 rounded-xl my-10;
+  @apply h-full px-10 py-12 rounded-xl my-10;
+}
+
+.offers-page h3 {
+  @apply font-light text-xl;
 }
 
 .promo-section{
@@ -11,7 +15,9 @@
 }
 
 .promo{
-  @apply bg-white rounded-lg overflow-hidden flex grow  shadow-md;
+  background: #ffffff;
+  box-shadow: 20px 20px 65px #bababa, -20px -20px 65px #ffffff;
+  @apply rounded-lg overflow-hidden flex grow  shadow-md;
 }
 
 .promo > .image{
@@ -23,13 +29,13 @@
 }
 
 .promo > .content h1{
-  @apply text-xl font-extrabold text-gray-500 my-3; 
+  @apply text-xl font-extrabold text-emerald-800 my-3; 
 }
 
 .promo > .content p{
-  @apply text-sm font-normal text-gray-400 my-3; 
+  @apply text-sm font-light text-emerald-900 my-3; 
 }
 
 .promo > .content h2{
-  @apply text-lg font-bold text-blue-500 my-3; 
+  @apply text-lg font-bold text-emerald-500 my-3; 
 }

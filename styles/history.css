@@ -1,43 +1,45 @@
-.history-page{
-  @apply bg-white min-h-screen text-gray-800 pt-8 px-4 pb-8; 
+.history-page {
+  @apply min-h-screen text-gray-800 pt-8 px-4 pb-8;
 }
 
-.history-page > section{
-  @apply bg-gray-200 h-full px-10 py-12 rounded-xl my-10;
+.history-page > section {
+  background: #ffffff;
+  box-shadow: 20px 20px 65px #bababa, -20px -20px 65px #ffffff;
+  @apply h-full px-10 py-12 rounded-xl my-10;
 }
 
-.history-page h3{
-  @apply font-semibold text-2xl;
+.history-page h3 {
+  @apply font-normal text-xl;
 }
 
-.history-page h6{
+.history-page h6 {
   @apply font-semibold text-sm text-gray-400 uppercase;
 }
 
-.history-page .post-card{
+.history-page .post-card {
   @apply flex bg-white rounded-2xl p-3 mb-3;
 }
 
-.history-page .post-card > .image{
+.history-page .post-card > .image {
   @apply h-40 w-40 rounded-2xl overflow-hidden relative mx-3;
 }
 
-.history-page .post-card > .image.qr{
+.history-page .post-card > .image.qr {
   @apply h-20 w-20 my-auto rounded-2xl overflow-hidden relative mx-3;
 }
 
-.history-page .post-card > .desc{
+.history-page .post-card > .desc {
   @apply flex-grow pt-10;
 }
 
-.history-page .post-card > .desc p{
+.history-page .post-card > .desc p {
   @apply ml-3;
 }
 
-.history-page .post-card > .points{
+.history-page .post-card > .points {
   @apply pt-10 pr-5 text-center;
 }
 
-.history-page .post-card > .points p{
-  @apply text-sm text-gray-400
+.history-page .post-card > .points p {
+  @apply text-sm text-gray-400;
 }

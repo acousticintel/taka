@@ -11,7 +11,7 @@ export default function Offers() {
     <AuthGuard>
       <div className='offers-page'>
         <Modal />
-        <h5>Vouchers</h5>
+        <h3>Vouchers</h3>
         <div className='section-divider' />
         <section>
           <div className='promo-section'>
@@ -38,7 +38,7 @@ export default function Offers() {
             )
           }
         </section>
-        <h5>Discounts</h5>
+        <h3>Discounts</h3>
         <div className='section-divider' />
         <section>
           <div className='promo-section'>

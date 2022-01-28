@@ -9,4 +9,5 @@ export const routes = [
       { name: 'Coupons', route: '/history' },
     ]
   },
+  { name: 'Offers', route: '/offers' },
 ]

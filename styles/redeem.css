@@ -1,5 +1,5 @@
 .redeem-page{
-  @apply bg-white min-h-screen text-gray-800 pt-8 px-4 pb-8; 
+  @apply min-h-screen text-gray-800 pt-8 px-4 pb-8; 
 }
 
 .redeem-page > section{
@@ -15,11 +15,11 @@
 }
 
 .redeem-section h1{
-  @apply font-bold text-3xl text-gray-500 text-center;
+  @apply font-bold text-3xl text-emerald-500 text-center;
 }
 
 .redeem-section p{
-  @apply text-lg text-gray-400 text-center px-10;
+  @apply text-lg text-emerald-800 font-light text-center px-10;
 }
 
 .redeem-section h6{
@@ -27,7 +27,8 @@
 }
 
 .coupon{
-  @apply relative bg-blue-500 text-white px-10 pt-3.5 h-14 my-5 rounded-lg;
+  @apply relative bg-emerald-900 text-white px-10 pt-3.5 h-14 
+  my-5 rounded-lg text-center;
 }
 
 .coupon > .slice{
