@@ -1,12 +1,17 @@
+import Link from 'next/link';
+
 export default function Footer() {
   return (
     <footer className="bg-teal-700">
       <div className="container mx-auto px-8">
         <div className="w-full flex flex-col md:flex-row py-6">
-          <div className="flex-1 mb-6">
-            <a className="text-lime-50 no-underline hover:no-underline font-bold text-2xl lg:text-4xl" href="/">
-              TAKA
-            </a>
+        <div className='flex-1 flex items-center justify-start sm:items-stretch'>
+            <Link href='/' passHref={true}>
+              <div className='flex-shrink-0 flex items-center font-extrabold text-4xl
+              transition-all duration-200 ease-in-out'>
+                TAKA
+              </div>
+            </Link>
           </div>
           <div className="flex-1">
             <p className="uppercase text-lime-200 md:mb-6">Links</p>
@@ -63,7 +68,6 @@ export default function Footer() {
           </div>
         </div>
       </div>
-      <a href="https://www.freepik.com/free-photos-vectors/background" className="text-gray-500">Background vector created by freepik - www.freepik.com</a>
     </footer>
   )
 }

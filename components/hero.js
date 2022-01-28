@@ -21,7 +21,7 @@ export default function Hero() {
     <div className=''>
       <HeroFull />
       <Process />
-      <section className='bg-lime-50 pt-8'>
+      <section className='bg-lime-50 pt-8 overflow-hidden'>
         <div className='container max-w-5xl mx-auto my-8 relative'>
           <div className='absolute z-0 w-96 h-96 -right-40 -bottom-52 opacity-80'>
             <img src="/assets/blob1.svg" alt="" />
@@ -343,7 +343,7 @@ export default function Hero() {
             </div>
           </div>
         </div>
-        <div className='relative h-72 w-full -bottom-2'>
+        <div className='relative h-72 w-full -bottom-1.5 z-40'>
           <Image src='/assets/neutral.png' alt='' layout='fill' objectFit='contain' />
         </div>
       </section>
