@@ -28,7 +28,7 @@ export default function Process() {
           <h3>Upload</h3>
           <p className='text-gray-800 text-center text-base px-6 
                 mb-5'>
-            Upload the picture of the device. You will recieve a QR Code.
+            Upload the picture of the device. You will receive a QR Code.
           </p>
         </div>
         <div className="inst-cont">
@@ -48,7 +48,7 @@ export default function Process() {
           <h3>Reedeem</h3>
           <p className='text-gray-800 text-center text-base px-6 
                 mb-5'>
-            Drop off the device at our nearest partner store
+            Redeem points at select stores.
           </p>
         </div>
       </div>
