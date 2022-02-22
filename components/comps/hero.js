@@ -14,7 +14,7 @@ export default function HeroFull() {
             Take a picture of your electronic item. Upload. Get a voucher that
             you can redeem.
           </p>
-          <Link href="/profile">
+          <Link href="/auth/signin">
             <button className="mx-auto lg:mx-0 bg-emerald-700 opacity-80 text-white font-bold rounded-full my-6 py-4 px-8 shadow-lg focus:outline-none focus:shadow-outline transform transition hover:scale-105 duration-300 ease-in-out">
               Earn Rewards
             </button>
