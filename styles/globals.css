@@ -46,5 +46,5 @@ body{
 }
 
 .page-content{
-  @apply font-light text-emerald-900 pt-20;
+  @apply font-light text-emerald-900 pt-16;
 }
