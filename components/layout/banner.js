@@ -19,11 +19,10 @@ const bannerVar = {
 
 export default function Banner() {
   const [show, setShow] = useState(false);
+  // Initialize deferredPrompt for use later to show browser install prompt.
+  let deferredPrompt;
 
   useEffect(() => {
-    // Initialize deferredPrompt for use later to show browser install prompt.
-    let deferredPrompt;
-
     window.addEventListener("beforeinstallprompt", (e) => {
       // Prevent the mini-infobar from appearing on mobile
       e.preventDefault();
@@ -40,6 +39,25 @@ export default function Banner() {
     setShow(true);
   };
 
+  const pwaInstall  = async () => {
+    console.log('👍', 'butInstall-clicked');
+    const promptEvent = window.deferredPrompt;
+    if (!promptEvent) {
+      // The deferred prompt isn't available.
+      return;
+    }
+    // Show the install prompt.
+    promptEvent.prompt();
+    // Log the result
+    const result = await promptEvent.userChoice;
+    console.log('👍', 'userChoice', result);
+    // Reset the deferred prompt variable, since
+    // prompt() can only be called once.
+    window.deferredPrompt = null;
+    // Hide the install button.
+    setShow(false);
+  };
+
   return (
     <AnimatePresence exitBeforeEnter className="banner">
       {show && (
@@ -51,7 +69,7 @@ export default function Banner() {
           className="content"
         >
           <span>Add the Taka application to your HomeScreen</span>
-          <button>Install</button>
+          <button onClick={pwaInstall}>Install</button>
         </motion.div>
       )}
     </AnimatePresence>
