@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 //custom packs
-import { AnimatePresence } from "framer-motion";
+import { AnimatePresence, motion } from "framer-motion";
 
 const bannerVar = {
   hide: {
