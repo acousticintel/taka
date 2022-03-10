@@ -7,6 +7,7 @@
 @import "./offers.css";
 @import "./redeem.css";
 @import "./hero.css";
+@import "./banner.css";
 
 @tailwind base;
 @tailwind components;
@@ -36,7 +37,7 @@ body{
 
 /* Track */
 .custom-scroll::-webkit-scrollbar-track {
-  @apply bg-white;
+  @apply bg-lime-50;
 }
 
 /* Handle */
