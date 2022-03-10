@@ -19,21 +19,24 @@ const bannerVar = {
 };
 
 export default function Banner() {
-  const [show, setShow] = useState(true);
-  // Initialize deferredPrompt for use later to show browser install prompt.
-  let deferredPrompt;
+  const [show, setShow] = useState(false);
 
   useEffect(() => {
     window.addEventListener("beforeinstallprompt", (event) => {
       // Prevent the mini-infobar from appearing on mobile.
       event.preventDefault();
-      console.log("👍", "beforeinstallprompt", event);
       // Stash the event so it can be triggered later.
       window.deferredPrompt = event;
       // Remove the 'hidden' class from the install button container.
       setShow(true);
       // Optionally, send analytics event that PWA install promo was shown.
-      console.log(`'beforeinstallprompt' event was fired.`);
+      console.log("👍", "beforeinstallprompt fired");
+    });
+
+    window.addEventListener("appinstalled", (event) => {
+      console.log("👍", "appinstalled fired");
+      // Clear the deferredPrompt so it can be garbage collected
+      window.deferredPrompt = null;
     });
   });
 
