@@ -38,6 +38,8 @@ export default function Banner() {
       console.log("👍", "appinstalled fired");
       // Clear the deferredPrompt so it can be garbage collected
       window.deferredPrompt = null;
+      // Hide the install button.
+      setShow(false);
     });
   });
 
@@ -69,8 +71,6 @@ export default function Banner() {
     // Reset the deferred prompt variable, since
     // prompt() can only be called once.
     window.deferredPrompt = null;
-    // Hide the install button.
-    setShow(false);
   };
 
   return (
