@@ -39,9 +39,19 @@ export default function Banner() {
       // Clear the deferredPrompt so it can be garbage collected
       window.deferredPrompt = null;
       // Hide the install button.
-      setShow(false);
+      setState("installed");
     });
   });
+
+  useEffect(() => {
+    let timer1;
+    if (state && state == "installed") {
+      timer1 = setTimeout(() => setShow(false), delay * 1000);
+    }
+    return () => {
+      clearTimeout(timer1);
+    };
+  }, [state]);
 
   const pwaInstall = async () => {
     console.log("👍", "pwaInstall-clicked");
@@ -89,6 +99,7 @@ export default function Banner() {
               {state &&
                 state == "installing" &&
                 "Taka application installing..."}
+              {state && state == "installed" && "Thank you 😀"}
               {state && state == "dismissed" && "Maybe another time"}
             </span>
             <button onClick={pwaInstall}>Install</button>
