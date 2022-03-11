@@ -35,11 +35,11 @@ export default function Banner() {
     });
 
     window.addEventListener("appinstalled", (event) => {
-      console.log("👍", "appinstalled fired");
       // Clear the deferredPrompt so it can be garbage collected
       window.deferredPrompt = null;
       // Hide the install button.
       setState("installed");
+      console.log("👍", "appinstalled fired");
     });
   });
 
@@ -103,7 +103,7 @@ export default function Banner() {
               {state && state == "installed" && "Thank you 😀"}
               {state && state == "dismissed" && "Maybe another time"}
             </span>
-            <button onClick={pwaInstall}>Install</button>
+            {!state && <button onClick={pwaInstall}>Install</button>}
             {state && state == "installing" && (
               <svg
                 role="status"
