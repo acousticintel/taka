@@ -67,7 +67,7 @@ export default function Banner() {
     // Log the result
     const result = await promptEvent.userChoice;
     console.log("👍", "userChoice", result);
-    if (result) {
+    if (result && !state) {
       switch (result.outcome) {
         case "dismissed":
           setState("dismissed");
