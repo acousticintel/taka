@@ -46,7 +46,7 @@ export default function Banner() {
   useEffect(() => {
     let timer1;
     let delay = 1;
-    console.log(state)
+    console.log(state);
     if (state && state == "installed") {
       timer1 = setTimeout(() => setShow(false), delay * 1000);
     }
@@ -68,16 +68,10 @@ export default function Banner() {
     const result = await promptEvent.userChoice;
     console.log("👍", "userChoice", result);
     if (result && !state) {
-      switch (result.outcome) {
-        case "dismissed":
-          setState("dismissed");
-          break;
-        case "accepted":
-          setState("installing");
-          break;
-
-        default:
-          break;
+      if (result.outcome == "accepted") {
+        setState("installing");
+      } else if (result.outcome == "dismissed") {
+        setState("dismissed");
       }
     }
     // Reset the deferred prompt variable, since
