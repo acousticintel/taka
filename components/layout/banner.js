@@ -46,6 +46,7 @@ export default function Banner() {
   useEffect(() => {
     let timer1;
     let delay = 1;
+    console.log(state)
     if (state && state == "installed") {
       timer1 = setTimeout(() => setShow(false), delay * 1000);
     }
