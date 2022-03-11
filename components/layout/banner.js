@@ -12,14 +12,14 @@ const bannerVar = {
     y: 0,
     transition: {
       type: "spring",
-      mass: 0.8,
-      damping: 5,
+      mass: 1,
+      damping: 10,
     },
   },
 };
 
 export default function Banner() {
-  const [show, setShow] = useState(false);
+  const [show, setShow] = useState(true);
   const [state, setState] = useState(null);
 
   useEffect(() => {
