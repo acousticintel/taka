@@ -1,6 +1,12 @@
 .banner{
-  @apply fixed bottom-0 z-50 h-1/5 w-full;
+  @apply fixed bottom-0 z-50 h-1/5 w-full 
+  transition-all duration-500;
 }
+
+.banner.shrink{
+  @apply !h-20;
+}
+
 
 .banner > .content{
   @apply container mx-auto bg-white text-emerald-900 
