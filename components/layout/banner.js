@@ -78,7 +78,7 @@ export default function Banner() {
   };
 
   return (
-    <div className={`banner ${state && "shrink"}`}>
+    <div className={`banner ${!show && "hidden"} ${state && "shrink"}`}>
       <AnimatePresence>
         {show && (
           <motion.div
@@ -101,7 +101,7 @@ export default function Banner() {
               viewBox="0 0 24 24"
               stroke="currentColor"
               strokeWidth="2"
-              onClick={()=>setShow(false)}
+              onClick={() => setShow(false)}
             >
               <path
                 strokeLinecap="round"
