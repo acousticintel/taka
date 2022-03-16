@@ -10,8 +10,6 @@ export default function Redeem() {
   const router = useRouter();
   const { redeem } = useData();
 
-
-
   return (
     <AuthGuard>
       <div className='redeem-page'>

@@ -24,7 +24,7 @@ const dropVar = {
 }
 
 export default function SideMenu() {
-  const { side, onSetSide } = useData();
+  const { side } = useData();
 
   return (
     <AnimatePresence exitBeforeEnter>
