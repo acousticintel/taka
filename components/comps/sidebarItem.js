@@ -29,8 +29,6 @@ export default function SidebarItem({ route }) {
 
   const handleMainClick = (e) => {
     e.preventDefault();
-    console.log(route)
-    console.log(route)
     if (route?.list) {
       setOpen(!open);
     } else {
