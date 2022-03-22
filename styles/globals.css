@@ -4,8 +4,10 @@
 @import "./profile.css";
 @import "./navbar.css";
 @import "./history.css";
+@import "./rates.css";
 @import "./offers.css";
 @import "./redeem.css";
+@import "./recent.css";
 @import "./hero.css";
 @import "./banner.css";
 
@@ -22,6 +24,7 @@ html {
 }
 
 body{
+  caret-color: transparent; 
   @apply font-body leading-normal tracking-normal text-white custom-scroll bg-lime-50;
 }
 
@@ -37,7 +40,7 @@ body{
 
 /* Track */
 .custom-scroll::-webkit-scrollbar-track {
-  @apply bg-lime-50;
+  @apply bg-transparent;
 }
 
 /* Handle */
@@ -53,4 +56,12 @@ body{
 .abs-center{
   @apply absolute top-1/2 left-1/2 
   transform -translate-x-1/2 -translate-y-1/2;
+}
+
+.modal{
+  @apply fixed z-40 inset-0 overflow-y-auto; 
+}
+
+.modal__blind{
+  @apply fixed inset-0 bg-gray-900;
 }

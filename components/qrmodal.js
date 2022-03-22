@@ -1,9 +1,8 @@
-import { Dialog, Transition } from '@headlessui/react';
 import { Fragment } from "react";
 import Image from "next/image";
 import { useData } from '../context/dataContext';
 
-export default function QrModal({ photo }) {
+export default function RecentModal({ photo }) {
   const { modal, onSetModal } = useData();
 
   return (

@@ -1,7 +1,7 @@
 export const points = [20, 40, 60, 80, 100]
 
 export const routes = [
-  { name: 'Profile', route: '/profile' },
+  { name: 'Profile', route: '/' },
   {
     name: 'History', route: '/history',
     list: [

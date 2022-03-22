@@ -1,9 +1,21 @@
 import { useState } from 'react';
 import { useRouter } from 'next/router';
 //custom pack
-import { Transition } from '@headlessui/react';
+import { motion, AnimatePresence } from "framer-motion";
 //custom
 import { useData } from '../../context/dataContext';
+
+const contVar = {
+  closed: {
+    opacity: 0,
+  },
+  open: {
+    opacity: 1,
+    transition: {
+      duration: 0.25,
+    },
+  },
+};
 
 export default function RedeemCard({ points }) {
   const router = useRouter();
@@ -24,17 +36,16 @@ export default function RedeemCard({ points }) {
       onMouseLeave={() => setHover(false)}
       onMouseDown={handleRedeemClick}
     >
-      <Transition
-        show={hover}
-        enter="transition ease-in duration-500"
-        enterFrom="opacity-0"
-        enterTo="opacity-100"
-        leave="transition ease-out duration-500"
-        leaveFrom="opacity-100"
-        leaveTo="opacity-0"
-      >
-        <div className="grad" />
-      </Transition>
+      <AnimatePresence>
+        {hover && (
+          <motion.div 
+          variants={contVar} 
+          exit="hide"
+          initial="hide" 
+          animate="show"
+          className="grad" />
+        )}
+      </AnimatePresence>
       <div className="content">
         <span>{points}</span>
         <span>Redeem</span>

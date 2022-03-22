@@ -43,3 +43,64 @@
 .history-page .post-card > .points p {
   @apply text-sm text-gray-400;
 }
+
+.hist__table{
+  @apply flex flex-col;
+}
+
+.hist__table table{
+  @apply min-w-full;
+}
+
+.hist__table table > thead{
+  @apply border-b border-emerald-600;
+}
+
+.hist__table table > thead > tr > th{
+  @apply text-sm font-medium text-emerald-900 px-0 sm:px-2 md:px-6 py-4 text-left;
+}
+
+.hist__table table > thead > tr > th:nth-child(2){
+  @apply text-center;
+}
+
+.hist__table table > tbody > tr:nth-child(even){
+  @apply bg-gray-100;
+}
+
+.hist__table table > tbody > tr {
+  @apply transition duration-300 ease-in-out hover:bg-green-50;
+}
+
+.hist__table table > tbody > tr:last-child {
+  @apply border-0;
+}
+
+.hist__table table > tbody > tr > td{
+  @apply text-sm text-gray-900 font-light px-1 sm:px-2 md:px-6 py-4 whitespace-nowrap;
+}
+
+.hist__table table > tbody > tr > td:first-child{
+  @apply whitespace-normal;
+}
+
+.hist__table table > tbody > tr > td:nth-child(2){
+  @apply text-center font-semibold;
+}
+
+.hist__table table > tbody > tr > td:last-child{
+  @apply uppercase font-bold tracking-wide;
+}
+
+.hist__table table > tbody > tr > td:last-child.pending{
+  @apply text-blue-700;
+}
+
+.hist__table table > tbody > tr > td:last-child.scheduled{
+  @apply text-pink-500;
+}
+
+.hist__table table > tbody > tr > td:last-child.completed{
+  @apply text-emerald-500;
+}
+

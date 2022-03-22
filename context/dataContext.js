@@ -9,7 +9,6 @@ import {
   orderBy, query, serverTimestamp
 } from '@firebase/firestore';
 import { ref, getDownloadURL, uploadString } from '@firebase/storage';
-import QRCode from 'qrcode';
 
 const dataContext = createContext();
 
@@ -30,26 +29,32 @@ function useProvideData() {
   const { data: session, status } = useSession();
   //hold app states
   const [userPoints, setUserPoints] = useState(null);
-  const [modal, setModal] = useState(false);
+  const [reqModal, setReqModal] = useState(false);
+  const [recModal, setRecModal] = useState(false);
   const [side, setSide] = useState(false);
   const [redeem, setRedeem] = useState(false);
+  const [selRequest, setSelRequest] = useState(null);
   //hold data
   const [posts, setPosts] = useState([]);
   const [redeemFilter, setRedeemFilter] = useState(null);
   const [vouchers, setVouchers] = useState([]);
+  const [requests, setRequests] = useState([]);
   const [discounts, setDiscounts] = useState([]);
   const [filVouchers, setFilVouchers] = useState([]);
   const [filDiscounts, setFilDiscounts] = useState([]);
 
-  const onSetModal = (val) => setModal(val);
+  const onSetReqModal = (val) => setReqModal(val);
+  const onSetRecModal = (val) => setRecModal(val);
   const onSetSide = (val) => setSide(val);
   const onSetUserPoints = (val) => setUserPoints(val);
   const onSetRedeem = (val) => setRedeem(val);
   const onSetRedeemFilter = (val) => setRedeemFilter(val);
+  const onSetSelRequest = (val) => setSelRequest(val);
   const onSetPosts = (val) => { if (val?.length > 0) setPosts(val) };
   const onSetVouchers = (val) => { if (val?.length > 0) setVouchers(val) };
   const onSetFilVouchers = (val) => setFilVouchers(val);
   const onSetDiscounts = (val) => { if (val?.length > 0) setDiscounts(val) };
+  const onSetRequests = (val) => { if (val?.length > 0) setRequests(val) };
   const onSetFilDiscounts = (val) => setFilDiscounts(val);
 
   //useEffect(() => { }, []);
@@ -59,6 +64,7 @@ function useProvideData() {
     readVouchersPromos();
     readDiscountsPromos();
     readUserData();
+    readRequests();
   }, [db, session])
 
   useEffect(() => {
@@ -124,6 +130,17 @@ function useProvideData() {
     });
   }
 
+  async function readRequests() {
+    const q = query(collection(db, 'requests'), orderBy('timestamp', 'desc'));
+    return onSnapshot(q, snapshot => {
+      const d = [];
+      snapshot.forEach((doc) => {
+        d.push(doc.data());
+      });
+      onSetRequests(d);
+    });
+  }
+
   async function filteredVouchers() {
     if (redeemFilter === null) {
       onSetFilVouchers(vouchers);
@@ -152,67 +169,21 @@ function useProvideData() {
     }
   }
 
-  async function uploadPost(cat, selectedFile) {
+  async function uploadRequest(order, total) {
     return new Promise(async (resolve, reject) => {
       try {
         if (status !== 'unauthenticated') {
-          // 1) Create a post and add to firestore 'user id' collection
-          // 2) get the post ID for the newly created post
-          // 3) upload the image to firebase storage with the user id
-          // 4) get a down load URL from fb storage and update the
-          let points;
-          switch (cat) {
-            case 'Phone':
-              points = 30;
-              break;
-            case 'Laptop':
-              points = 40;
-              break;
-            case 'Computer':
-              points = 50;
-              break;
-            case 'Other':
-              points = 20;
-              break;
-            default:
-              points = 0;
-              break;
-          }
-
-          const docRef = await addDoc(collection(db, `collections/${session.user.uid}/posts`), {
-            username: session.user.name,
-            category: cat,
-            points,
-            //caption: captionRef.current.value,
+            const docRef = await addDoc(collection(db, "requests"), {
             profileImg: session.user.image,
+            username: session.user.name,
+            userId: session.user.uid,
+            order,
+            total,
             timestamp: serverTimestamp()
           })
           //console.log('New doc added with ID', docRef.id);
 
-          const imageRef = ref(storage, session.user.uid + '/' + docRef.id + '/image');
-          const qrRef = ref(storage, session.user.uid + '/' + docRef.id + '/qr');
-
-          await uploadString(imageRef, selectedFile, 'data_url').then(async snapshot => {
-            const downloadURL = await getDownloadURL(imageRef);
-
-            await updateDoc(doc(db, `collections/${session?.user.uid}/posts`, docRef.id), {
-              image: downloadURL
-            })
-          });
-
-          // With promises
-          QRCode.toDataURL(`uid: ${session.user.uid} **end** doc: ${docRef.id}`)
-            .then(async (url) => {
-              await uploadString(qrRef, url, 'data_url').then(async snapshot => {
-                const downloadURL = await getDownloadURL(qrRef);
-
-                await updateDoc(doc(db, `collections/${session?.user.uid}/posts`, docRef.id), {
-                  qr: downloadURL
-                })
-              });
-            })
-
-          resolve({ status: 200 })
+          if (docRef) resolve({ status: 200 })
         }
       } catch (error) {
         reject({ status: 500, mes: error });
@@ -221,13 +192,16 @@ function useProvideData() {
   }
 
   return {
-    modal, onSetModal,
+    reqModal, onSetReqModal,
+    recModal, onSetRecModal,
     side, onSetSide,
     redeem, onSetRedeem,
+    selRequest, onSetSelRequest,
     redeemFilter, onSetRedeemFilter,
+    requests, onSetRequests,
     userPoints, posts,
     filVouchers, filDiscounts,
-    uploadPost
+    uploadRequest
   }
 }
 

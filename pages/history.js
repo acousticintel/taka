@@ -1,47 +1,78 @@
-import { useState } from 'react';
-import Image from 'next/image';
+import { motion } from "framer-motion";
 //custom
-import QrModal from '../components/qrmodal';
 import { useData } from '../context/dataContext';
-import { AuthGuard } from '../components/layout/authGuard';
+import { AuthGuard } from '../components/elements/authGuard';
+
+const childVar = {
+  hide: {
+    y: 5,
+    scale: 0.95,
+    opacity: 0,
+  },
+  show: i => ({
+    y: 0,
+    scale: 1,
+    opacity: 1,
+    transition: {
+      delay: i * 0.1,
+    },
+  }),
+};
 
 export default function History() {
 
-  const { onSetModal, posts } = useData();
+  const { requests } = useData();
 
-  const [qr, setQr] = useState(null);
+  const listOfOrders = (data) => {
+    const unique = [...new Set(data.map(item => item.device))];
+    if (unique) {
+      let s = "";
+      unique?.length > 0 && unique.map(item => s = `${s} ${item}`)
+      return s;
+    }
+  }
+
+  const totalOfOrders = (data) => {
+    const t = 0;
+    data.map(item => t = t + Number(item.count));
+    return t;
+  }
 
   return (
     <AuthGuard>
       <div className='history-page'>
-        <QrModal photo={qr} />
-        <h3>Uploaded Photos</h3>
+        <h3>Request History</h3>
         <div className='section-divider' />
-        <section>
-          <div className='flex flex-col'>
-            {
-              posts?.map(post => {
-                return (
-                  <div className='post-card' key={post.id}>
-                    <div className='image'>
-                      <Image src={post.data().image} layout='fill' />
-                    </div>
-                    <div className='desc'>
-                      <h6>Category:</h6>
-                      <p>{post.data().category}</p>
-                    </div>
-                    <div className='points'>
-                      <p>Earned Points</p>
-                      <h3>{post.data().points}</h3>
-                    </div>
-                    <div className='image qr' onClick={() => { setQr(post.data().qr); onSetModal(true) }}>
-                      <Image src={post.data().qr} layout='fill' alt='' />
-                    </div>
-                  </div>
-                )
-              })
-            }
-          </div>
+        <section className="hist__table">
+          <table>
+            <thead>
+              <tr>
+                <th scope="col">Items</th>
+                <th scope="col">Price</th>
+                <th scope="col">Status</th>
+              </tr>
+            </thead>
+            <tbody>
+              {
+                requests?.length > 0 &&
+                requests.map((r, i) => (
+                  <motion.tr
+                    variants={childVar}
+                    initial="hide"
+                    animate="show"
+                    exit="hide"
+                    custom={i}
+                    key={i}
+                    onClick={() => handleClick(r)}
+                  >
+                    <td>{listOfOrders(r.order)} x{totalOfOrders(r.order)}</td>
+                    <td>{`Ksh ${r.total}`}</td>
+                    <td className="scheduled">Scheduled</td>
+                  </motion.tr>
+                ))
+              }
+            </tbody>
+          </table>
         </section>
       </div>
     </AuthGuard>

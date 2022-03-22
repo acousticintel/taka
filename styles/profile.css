@@ -1,6 +1,6 @@
 .profile-page {
   @apply min-h-screen text-emerald-800  pt-10 mx-auto
-  px-6 md:max-w-lg lg:max-w-xl xl:max-w-2xl;
+  px-6 md:max-w-xl lg:max-w-xl xl:max-w-2xl;
 }
 
 .profile-page > .buttons-sec {
@@ -8,17 +8,25 @@
 }
 
 .profile-page > .buttons-sec > .button {
-  background: linear-gradient(145deg, #ffffff, #e6e6e6);
-  box-shadow: 20px 20px 65px #bababa, -20px -20px 65px #ffffff;
-  @apply mx-auto lg:mx-0 
-  text-emerald-700 font-bold rounded-full my-6 py-4 hover:text-emerald-500
-  px-8 focus:outline-none border-2 border-emerald-700 hover:border-emerald-500 transform transition 
+  @apply mx-auto lg:mx-0 rounded-full my-6 py-4 px-8
+  text-emerald-700 hover:text-emerald-500 font-bold
+  focus:outline-none hover:border-emerald-700 transform transition 
   hover:scale-105 duration-300 ease-in-out;
+}
+
+.profile-page > .buttons-sec > .button:first-child {
+  background: linear-gradient(315deg, #fffff7, #dee5d0);
+  box-shadow: -5px -5px 36px #bcc1b0, 5px 5px 36px #ffffff;
+}
+
+.profile-page > .buttons-sec > .button:last-child {
+  background: linear-gradient(45deg, #fffff7, #dee5d0);
+  box-shadow: 5px -5px 36px #bcc1b0, -5px 5px 36px #ffffff;
 }
 
 .profile-page > section {
   background: #ffffff;
-  box-shadow: 20px 20px 65px #bababa, -20px -20px 65px #ffffff;
+  box-shadow: -5px -5px 25px #dee5d0, 5px 5px 25px #fffffe;
   @apply px-6 py-6 rounded-xl my-10;
 }
 
@@ -79,11 +87,10 @@
 }
 
 .points-sec .button {
-  background: linear-gradient(145deg, #ffffff, #e6e6e6);
-  box-shadow: 20px 20px 65px #bababa, -20px -20px 65px #ffffff;
-  @apply mx-auto lg:mx-0 text-emerald-700 font-bold 
-  rounded-full my-6 py-4 hover:text-emerald-500
-  px-8 focus:outline-none border-2 border-emerald-700 
-  hover:border-emerald-500 transform transition 
-  hover:scale-105 duration-300 ease-in-out;
+  background: linear-gradient(45deg, #ffffff, #e6e6e6);
+  box-shadow: 5px -5px 10px #c4c4c4, -5px 5px 10px #ffffff;
+  @apply mx-auto lg:mx-0 rounded-full my-6 py-4 px-8 
+  text-emerald-700 font-bold hover:text-emerald-500
+  focus:outline-none hover:border-emerald-500 
+  transform transition-all hover:scale-105 duration-300 ease-in-out;
 }

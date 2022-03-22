@@ -129,7 +129,7 @@ function Footer({ router }) {
         </div>
       </footer>
     )
-  }else{
+  } else {
     return null;
   }
 }
