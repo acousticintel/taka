@@ -9,7 +9,7 @@ const contVar = {
   },
   show: {
     transition: {
-      delayChildren: .25,
+      delayChildren: 1.5,
       staggerChildren: .3,
     }
   }
@@ -55,7 +55,7 @@ const btnVar = {
     opacity: 1,
     x: 0,
     transition: {
-      delay: .5,
+      delay: 2,
       duration: .3,
       ease: 'easeIn'
     }
@@ -68,12 +68,12 @@ export default function PointsSection() {
 
   const handleOffersClick = e => {
     e.preventDefault();
-    router.push('/')
+    router.push('/offers')
   }
 
   return (
     <div className='points-sec'>
-      <h3>Earned Points</h3>
+      <h3>Submited Products</h3>
       <div className='section-divider' />
       <div className='flex flex-col sm:flex-row items-center justify-around px-10 gap-8'>
         <motion.div

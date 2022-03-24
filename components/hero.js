@@ -1,8 +1,8 @@
 import { useRouter } from 'next/router';
 import { useSession } from 'next-auth/react';
 import Image from 'next/image';
-import HeroFull from './hero';
-import Process from './process';
+import HeroFull from './comps/hero';
+import Process from './comps/process';
 
 export default function Hero() {
   const { data: session } = useSession();

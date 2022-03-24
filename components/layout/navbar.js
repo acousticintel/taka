@@ -1,44 +1,13 @@
-import { motion, AnimatePresence } from "framer-motion";
-import { signOut, useSession } from "next-auth/react";
 import { useEffect, useState } from "react";
 import { withRouter } from "next/router";
 import Image from "next/image";
 import Link from "next/link";
-//custom
-import Menu from "../elements/menu";
+
+import { Transition } from "@headlessui/react";
+import { signOut, useSession } from "next-auth/react";
+import Menu from "../comps/menu";
 import { useData } from "../../context/dataContext";
 
-
-const contVar = {
-  closed: {
-    y: -10,
-    scale: 0.95,
-    opacity: 0,
-  },
-  open: {
-    y: 0,
-    scale: 1,
-    opacity: 1,
-    transition: {
-      duration: 0.25,
-      staggerChildren: 0.15,
-    },
-  },
-};
-
-const childVar = {
-  closed: {
-    scale: 0.95,
-    opacity: 0,
-  },
-  open: {
-    scale: 1,
-    opacity: 1,
-    transition: {
-      duration: 0.15,
-    },
-  },
-};
 function Navbar({ router }) {
   const { data: session, status } = useSession();
   const { side, onSetSide } = useData();
@@ -48,6 +17,7 @@ function Navbar({ router }) {
 
   const [backgroundTransparacy, setBackgroundTransparacy] =
     useState("transparent");
+  const [button, setButton] = useState("bg-white");
   const [textColor, setTextColor] = useState("text-emerald-900");
   const [boxShadow, setBoxShadow] = useState("drop-shadow-none");
 
@@ -72,18 +42,31 @@ function Navbar({ router }) {
       setBackgroundTransparacy("bg-transparent");
     } else {
       setTextColor("text-emerald-900");
-      setBoxShadow("shadow-sm");
-      setBackgroundTransparacy("bg-white");
+      if (router.pathname !== "/") {
+        setButton("bg-lime-50");
+        setBoxShadow("drop-shadow-md");
+        setBackgroundTransparacy("bg-white");
+      } else {
+        if (clientWindowHeight > 10) {
+          setButton("bg-lime-50");
+          setBoxShadow("drop-shadow-md");
+          setBackgroundTransparacy("bg-white");
+        } else {
+          setButton("bg-white");
+          setBoxShadow("drop-shadow-none");
+          setBackgroundTransparacy("bg-transparent");
+        }
+      }
     }
   }, [clientWindowHeight, router, side]);
 
   return (
     <nav
-      className={`fixed w-full z-40 top-0 transition-all duration-200 ease-in-out
+      className={`fixed w-full z-50 top-0 transition-all duration-200 ease-in-out
       ${textColor} ${backgroundTransparacy} ${boxShadow}`}
     >
       <div className="max-w-7xl mx-auto px-2 sm:px-6 lg:px-8">
-        <div className="relative flex items-center justify-between h-16">
+        <div className="relative flex items-center justify-between h-16"> 
           {
             //change location of logo if links exist
             //justify-center sm:justify-start
@@ -92,7 +75,11 @@ function Navbar({ router }) {
             <Link href="/" passHref={true}>
               <div className="flex items-center">
                 <div className="relative w-6 h-8 mr-2">
-                  <Image src="/assets/logo.png" alt="logo" layout="fill" />
+                  <Image
+                    src="/assets/logo.png"
+                    alt="logo"
+                    layout="fill"
+                  />
                 </div>
                 <span
                   className="flex-shrink-0 flex items-center font-extrabold text-4xl
@@ -110,6 +97,35 @@ function Navbar({ router }) {
           >
             {status !== "loading" && status !== "unauthenticated" && (
               <>
+                <button
+                  type="button"
+                  className="bg-transparent p-1 rounded-full 
+            text-lime-50 hover:text-lime-100 focus:outline-none focus:ring-2 
+              focus:ring-offset-2 focus:ring-offset-gray-800 focus:ring-white"
+                >
+                  {
+                    //Heroicon name: outline/bell
+                  }
+                  <svg
+                    className="h-6 w-6"
+                    xmlns="http://www.w3.org/2000/svg"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    stroke="currentColor"
+                    aria-hidden="true"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth="2"
+                      d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9"
+                    />
+                  </svg>
+                </button>
+
+                {
+                  //Heroicon name: outline/bell
+                }
                 <div className="ml-3 relative">
                   <div>
                     <button
@@ -133,58 +149,62 @@ function Navbar({ router }) {
                       </div>
                     </button>
                   </div>
-                  <AnimatePresence>
-                    {dropOpen && (
-                      <motion.div
-                        className="origin-top-right absolute right-0 mt-2 w-48 
-                        rounded-md shadow-lg py-1 bg-white ring-1 z-40
-                        ring-black ring-opacity-5 focus:outline-none"
-                        initial="closed"
-                        animate="open"
-                        exit="closed"
-                        variants={contVar}
+                  <Transition
+                    show={dropOpen}
+                    enter="transition ease-out duration-100"
+                    enterFrom="transform opacity-0 scale-95"
+                    enterTo="transform opacity-100 scale-100"
+                    leave="transition ease-in duration-75"
+                    leaveFrom="transform opacity-100 scale-100"
+                    leaveTo="transform opacity-0 scale-95"
+                  >
+                    <div
+                      className="origin-top-right absolute right-0 mt-2 w-48 rounded-md shadow-lg py-1 bg-white ring-1 ring-black ring-opacity-5 focus:outline-none"
+                      role="menu"
+                      aria-orientation="vertical"
+                      aria-labelledby="user-menu-button"
+                      tabIndex="-1"
+                    >
+                      {
+                        // Active: 'bg-gray-100', Not Active: ''
+                      }
+                      <a
+                        onMouseDown={handleClick}
+                        className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-300 hover:text-gray-800"
+                        role="menuitem"
+                        tabIndex="-1"
+                        id="user-menu-item-0"
                       >
-                        <motion.a
-                          variants={childVar}
-                          onMouseDown={handleClick}
-                          className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-300 hover:text-gray-800"
-                          role="menuitem"
-                          tabIndex="-1"
-                          id="user-menu-item-0"
-                        >
-                          Your Profile
-                        </motion.a>
-                        <a
-                          onMouseDown={signOut}
-                          className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-300 hover:text-gray-800"
-                          role="menuitem"
-                          tabIndex="-1"
-                          id="user-menu-item-2"
-                        >
-                          Sign out
-                        </a>
-                      </motion.div>
-                    )}
-                  </AnimatePresence>
+                        Your Profile
+                      </a>
+                      <a
+                        onMouseDown={signOut}
+                        className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-300 hover:text-gray-800"
+                        role="menuitem"
+                        tabIndex="-1"
+                        id="user-menu-item-2"
+                      >
+                        Sign out
+                      </a>
+                    </div>
+                  </Transition>
                 </div>
               </>
             )}
-            {router.pathname.indexOf("/auth/") !== 0 &&
-              status !== "loading" &&
-              status === "unauthenticated" && (
-                <Link href="/auth/signin" passHref={true}>
-                  <button
-                  className={`mx-auto lg:mx-0 bg-lime-50
+            {status !== "loading" && status === "unauthenticated" && (
+              <Link href="/auth/signin" passHref={true}>
+                <button
+                  className={`mx-auto lg:mx-0 ${button}
                     text-gray-800 font-bold rounded-full my-6 
                     py-2 px-4 shadow-md focus:outline-none 
                     focus:shadow-outline transform transition 
                     hover:scale-105 duration-300 ease-in-out`}
-                    onClick={() => onSetSide(false)}
-                  >
-                    Login / SignUp
-                  </button>
-                </Link>
-              )}
+                    onClick={()=>onSetSide(false)}
+                >
+                  Login / SignUp
+                </button>
+              </Link>
+            )}
             <Menu />
           </div>
         </div>

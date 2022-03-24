@@ -1,8 +1,8 @@
 import Head from "next/head";
 import Navbar from "./navbar";
+import SideMenu from "../layout/sideMenu";
 import Footer from "./footer";
 import Banner from "./banner";
-import SideMenu from "../layout/sideMenu";
 
 export default function Layout({ children }) {
   return (
@@ -14,7 +14,7 @@ export default function Layout({ children }) {
       <Navbar />
       <Banner/>
       <div className="page-content">{children}</div>
-      <Footer/>
+      <Footer />
     </>
   );
 }
