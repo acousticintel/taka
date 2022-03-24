@@ -20,12 +20,14 @@ export default function History() {
         <section>
           <div className='flex flex-col'>
             {
-              posts?.map(post => {
+              posts && posts?.map(post => {
                 return (
                   <div className='post-card' key={post.id}>
-                    <div className='image'>
-                      <Image src={post.data().image} layout='fill' />
-                    </div>
+                    {post.data().image && (
+                      <div className='image'>
+                        <Image src={post.data().image} layout='fill' />
+                      </div>
+                    )}
                     <div className='desc'>
                       <h6>Category:</h6>
                       <p>{post.data().category}</p>
@@ -34,9 +36,11 @@ export default function History() {
                       <p>Earned Points</p>
                       <h3>{post.data().points}</h3>
                     </div>
-                    <div className='image qr' onClick={() => { setQr(post.data().qr); onSetModal(true) }}>
-                      <Image src={post.data().qr} layout='fill' alt='' />
-                    </div>
+                    {post.data().qr && (
+                      <div className='image qr' onClick={() => { setQr(post.data().qr); onSetModal(true) }}>
+                        <Image src={post.data().qr} layout='fill' alt='' />
+                      </div>
+                    )}
                   </div>
                 )
               })

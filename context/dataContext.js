@@ -70,6 +70,7 @@ function useProvideData() {
     if (session?.user) {
       const q = query(collection(db, `collections/${session?.user.uid}/posts`), orderBy('timestamp', 'desc'));
       return onSnapshot(q, snapshot => {
+        console.log(snapshot.docs)
         onSetPosts(snapshot.docs);
       })
     };
