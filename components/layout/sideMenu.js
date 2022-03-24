@@ -1,8 +1,7 @@
-import { useEffect } from 'react';
 import { useData } from '../../context/dataContext';
-import SidebarItem from '../comps/sidebarItem';
+import SidebarItem from '../elements/sidebarItem';
 import { motion, AnimatePresence } from 'framer-motion';
-import { routes } from '../../context/points';
+import { routes } from '../../context/vars';
 
 const dropVar = {
   hide: {

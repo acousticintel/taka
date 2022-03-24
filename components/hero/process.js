@@ -13,32 +13,22 @@ export default function Process() {
       <div className='inst'>
         <div className="inst-cont">
           <div className='image'>
-            <Image src='/assets/photo.svg' alt='take photo' layout='fill' />
-          </div>
-          <h3>Take a Picture</h3>
-          <p className='text-gray-800 text-center text-base 
-                px-6 mb-5'>
-            Take a picture of your electronics
-          </p>
-        </div>
-        <div className="inst-cont">
-          <div className='image'>
             <Image src='/assets/upload.svg' alt='take photo' layout='fill' />
           </div>
-          <h3>Upload</h3>
+          <h3>Request</h3>
           <p className='text-gray-800 text-center text-base px-6 
                 mb-5'>
-            Upload the picture of the device. You will receive a QR Code.
+            Request a pick up for e waste. 
           </p>
         </div>
         <div className="inst-cont">
           <div className='image'>
             <Image src='/assets/drop.svg' alt='take photo' layout='fill' />
           </div>
-          <h3>Drop Off</h3>
+          <h3>Pick Up</h3>
           <p className='text-gray-800 text-center text-base px-6 
                 mb-5'>
-            Drop off the device at our nearest partner store
+            E Waste is picked up on a scheduled day
           </p>
         </div>
         <div className="inst-cont">
@@ -48,7 +38,7 @@ export default function Process() {
           <h3>Reedeem</h3>
           <p className='text-gray-800 text-center text-base px-6 
                 mb-5'>
-            Redeem points at select stores.
+            Redeem points with cash back coupons.
           </p>
         </div>
       </div>

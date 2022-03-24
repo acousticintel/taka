@@ -1,5 +1,5 @@
 .signIn-page{
-  @apply bg-white h-screen;
+  @apply h-screen;
 }
 
 .signIn-page button{

@@ -5,7 +5,7 @@ import { withRouter } from "next/router";
 import Image from "next/image";
 import Link from "next/link";
 //custom
-import Menu from "../comps/menu";
+import Menu from "../elements/menu";
 import { useData } from "../../context/dataContext";
 
 
@@ -48,7 +48,6 @@ function Navbar({ router }) {
 
   const [backgroundTransparacy, setBackgroundTransparacy] =
     useState("transparent");
-  const [button, setButton] = useState("bg-white");
   const [textColor, setTextColor] = useState("text-emerald-900");
   const [boxShadow, setBoxShadow] = useState("drop-shadow-none");
 
@@ -73,21 +72,8 @@ function Navbar({ router }) {
       setBackgroundTransparacy("bg-transparent");
     } else {
       setTextColor("text-emerald-900");
-      if (router.pathname !== "/") {
-        setButton("bg-lime-50");
-        setBoxShadow("drop-shadow-md");
-        setBackgroundTransparacy("bg-white");
-      } else {
-        if (clientWindowHeight > 10) {
-          setButton("bg-lime-50");
-          setBoxShadow("drop-shadow-md");
-          setBackgroundTransparacy("bg-white");
-        } else {
-          setButton("bg-white");
-          setBoxShadow("drop-shadow-none");
-          setBackgroundTransparacy("bg-transparent");
-        }
-      }
+      setBoxShadow("shadow-sm");
+      setBackgroundTransparacy("bg-white");
     }
   }, [clientWindowHeight, router, side]);
 
@@ -188,7 +174,7 @@ function Navbar({ router }) {
               status === "unauthenticated" && (
                 <Link href="/auth/signin" passHref={true}>
                   <button
-                    className={`mx-auto lg:mx-0 ${button}
+                  className={`mx-auto lg:mx-0 bg-lime-50
                     text-gray-800 font-bold rounded-full my-6 
                     py-2 px-4 shadow-md focus:outline-none 
                     focus:shadow-outline transform transition 

@@ -2,13 +2,12 @@
 import { useState, useEffect, createContext, useContext } from 'react';
 //custom packs
 import { useSession } from 'next-auth/react';
-import { db, storage } from '../firebase';
+import { db } from '../firebase';
 import {
   doc, addDoc, setDoc, updateDoc,
   getDoc, collection, onSnapshot,
-  orderBy, query, serverTimestamp
+  orderBy, where, query, serverTimestamp
 } from '@firebase/firestore';
-import { ref, getDownloadURL, uploadString } from '@firebase/storage';
 
 const dataContext = createContext();
 
@@ -131,14 +130,16 @@ function useProvideData() {
   }
 
   async function readRequests() {
-    const q = query(collection(db, 'requests'), orderBy('timestamp', 'desc'));
-    return onSnapshot(q, snapshot => {
-      const d = [];
-      snapshot.forEach((doc) => {
-        d.push(doc.data());
+    if (session?.user) {
+      const q = query(collection(db, 'requests'), where("userId", "==", session?.user.uid), orderBy('timestamp', 'desc'));
+      return onSnapshot(q, snapshot => {
+        const d = [];
+        snapshot.forEach((doc) => {
+          d.push(doc.data());
+        });
+        onSetRequests(d);
       });
-      onSetRequests(d);
-    });
+    };
   }
 
   async function filteredVouchers() {
@@ -173,7 +174,7 @@ function useProvideData() {
     return new Promise(async (resolve, reject) => {
       try {
         if (status !== 'unauthenticated') {
-            const docRef = await addDoc(collection(db, "requests"), {
+          const docRef = await addDoc(collection(db, `requests`), {
             profileImg: session.user.image,
             username: session.user.name,
             userId: session.user.uid,

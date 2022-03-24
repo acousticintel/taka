@@ -1,9 +1,7 @@
 import { useRouter } from 'next/router';
 import Image from 'next/image';
 //custom
-import Modal from '../components/modal';
-import { AuthGuard } from '../components/layout/authGuard';
-import Coupon from '../components/comps/coupon';
+import { AuthGuard } from '../components/elements/authGuard';
 import { useData } from '../context/dataContext';
 
 export default function Redeem() {
@@ -13,7 +11,6 @@ export default function Redeem() {
   return (
     <AuthGuard>
       <div className='redeem-page'>
-        <Modal />
         <h5>Reedem</h5>
         <div className='section-divider' />
         <section>
@@ -23,7 +20,6 @@ export default function Redeem() {
             </div>
             <h1>Redeem {redeem?.name} Voucher</h1>
             <p>{redeem?.ldesc}</p>
-            <Coupon text='DNYIIFHR' />
             <h6>Use this coupon code at the store.</h6>
           </div>
         </section>

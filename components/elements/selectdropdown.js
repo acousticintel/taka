@@ -32,7 +32,7 @@ const childVar = {
   },
 };
 
-export default function SelectDropdown({ value, list, change, setFunc }) {
+export default function SelectDropdown({ value, list, change, setFunc, index }) {
   const [dropOpen, setDropOpen] = useState(false);
 
   return (
@@ -94,7 +94,7 @@ export default function SelectDropdown({ value, list, change, setFunc }) {
                   role="menuitem"
                   tabIndex="-1"
                   id="user-menu-item-0"
-                  onMouseDown={() => change("select", { value: l }, setFunc)}
+                  onMouseDown={() => change("select", { value: l }, setFunc, index)}
                 >
                   {l}
                 </motion.li>

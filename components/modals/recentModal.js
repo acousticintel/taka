@@ -142,5 +142,5 @@ function useOutsideAlerter(ref) {
     // Adding click event listener
     document.addEventListener("click", handleOutsideClick);
     return () => document.removeEventListener("click", handleOutsideClick);
-  }, [ref, recModal]);
+  }, [ref, recModal, onSetRecModal]);
 }

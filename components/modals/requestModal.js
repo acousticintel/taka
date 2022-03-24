@@ -60,6 +60,12 @@ export default function RecentModal() {
   const [rfrsh, setRfrsh] = useState(false);
   const [loading, setLoading] = useState(false);
 
+  useEffect(() => {
+    let t = getTotal();
+    setTotal(t)
+    //console.log(order)
+  }, [rfrsh]);
+
   const getRates = (cat) => {
     let r;
     switch (cat) {
@@ -82,12 +88,6 @@ export default function RecentModal() {
     return r;
   }
 
-  useEffect(() => {
-    let t = getTotal();
-    setTotal(t)
-    //console.log(order)
-  }, [rfrsh]);
-
   // function that verifies if value contains only numbers
   const verifyNumber = (value) => {
     var numberRex = new RegExp("^[0-9]+$");
@@ -103,14 +103,14 @@ export default function RecentModal() {
       case "number":
         if (verifyNumber(event.target.value)) {
           let n = order
-          n[index]?.count = event.target.value
+          n[index].count = event.target.value
           setFunction(n);
           setRfrsh(!rfrsh);
         }
         break;
       case "select":
         let n = order
-        n[index]?.device = event.value
+        n[index].device = event.value
         setFunction(n);
         setRfrsh(!rfrsh);
         break;
@@ -220,7 +220,9 @@ export default function RecentModal() {
                               <SelectDropdown
                                 value={o.device}
                                 list={["Phone", "Laptop", "Computer", "Other"]}
-                                change={(e) => change("select", e, setOrder, i)}
+                                change={change}
+                                setFunc={setOrder}
+                                index={i}
                               />
                             </div>
                             <div className="w-1/3">
@@ -294,5 +296,5 @@ function useOutsideAlerter(ref) {
     // Adding click event listener
     document.addEventListener("click", handleOutsideClick);
     return () => document.removeEventListener("click", handleOutsideClick);
-  }, [ref, reqModal]);
+  }, [ref, reqModal, onSetReqModal]);
 }

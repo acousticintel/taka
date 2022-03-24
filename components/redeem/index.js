@@ -2,7 +2,7 @@
 import { motion } from 'framer-motion';
 //custom
 import RedeemCard from './redeemcard';
-import { points } from '../../context/points';
+import { points } from '../../context/vars';
 
 const contVar = {
   hide: {

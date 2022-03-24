@@ -23,7 +23,9 @@ export function AuthGuard({ children }) {
 
   /* show loading indicator while the auth provider is still initializing */
   if (status === "loading") {
-    return <h1>Application Loading</h1>;
+    return <div className="w-full h-screen flex justify-center items-center">
+      <h1>Application Loading</h1>
+    </div>;
   }
 
   // if auth initialized with a valid user show protected page
